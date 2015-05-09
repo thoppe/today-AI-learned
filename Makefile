@@ -1,3 +1,6 @@
+download_wikipedia:
+	python src/wikipedia_dl.py
+
 all:
 	python attribute_TIL.py 
 	python build_decoy_db.py

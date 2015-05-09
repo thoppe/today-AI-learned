@@ -9,8 +9,8 @@ from src.parsing import tokenize, frequency_table
 os.system("mkdir -p db")
 os.system("mkdir -p db/model")
 
-#PARALLEL_FLAG = True
-PARALLEL_FLAG = False
+PARALLEL_FLAG = True
+#PARALLEL_FLAG = False
 
 def reddit_json():
     F_REDDIT = sorted(glob.glob("data/reddit/*.json"))

@@ -7,6 +7,8 @@ from nltk.tokenize import word_tokenize
 
 from stemming.porter2 import stem as port_stem
 
+import bs4
+
 stopwords = stopwords.words('english') + ["til"]
 simple_tokens = ["'",'"','.','?','!',"''",':','``',',',')','(']
 
@@ -78,3 +80,26 @@ def frequency_table(tokens):
         df.ix[k][list(vals)] += 1
 
     return df
+
+##############################################################
+
+class paragraph_iter(object):
+    def __init__(self, html):
+        self.soup  = bs4.BeautifulSoup(html)
+
+        doc = self.soup.doc
+        
+        self.id    = doc["id"]
+        self.title = doc["title"]
+        self.url   = doc["url"]
+
+        self.paragraphs = []
+        blocks = doc.findAll(text=True,recursive=False)
+        for block in blocks:
+            for p in block.split('\n'):
+                p = p.strip()
+                if len(p)>20:
+                    self.paragraphs.append(p)
+
+    def __getitem__(self,i):
+        return self.paragraphs[i]

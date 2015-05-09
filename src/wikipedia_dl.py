@@ -1,10 +1,19 @@
+'''
+Downloads the cooresponding wikipedia entry for the reddit submissions.
+'''
+
 import glob, json, os, time, codecs
 import urlparse
 import requests
-import wikipedia, urllib2
+import wikipedia
+import urllib2
+import shutil
 
 os.system("mkdir -p data")
 os.system("mkdir -p data/wikipedia")
+
+# Move problematic files here
+os.system("mkdir -p data/broken_reddit")
 
 import logging
 logging.basicConfig(filename='broken_json.log',level=logging.DEBUG)
@@ -57,6 +66,8 @@ for js in reddit_json():
         try:
             save_page(name,f_html)
         except Exception as Ex:
-            logging.warning(f_html)
-            print Ex
+            name = js["filename"]
+            print name, "broken, moving out."
+            shutil.move(name,
+                        "data/broken_reddit/{}".format(os.path.basename(name)))
             

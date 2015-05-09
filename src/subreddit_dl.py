@@ -1,6 +1,10 @@
+'''
+Downloads the reddit TIL submissions, limited to top 1000.
+If you want more you'll have to come across it some other way.
+'''
+
 import praw, os, json, codecs
 from pprint import pprint
-
 
 subreddit_name  = "todayilearned"
 

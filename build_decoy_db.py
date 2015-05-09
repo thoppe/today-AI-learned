@@ -1,29 +1,7 @@
 import sqlite3
-import bs4, itertools
+import itertools
 import numpy as np
-from src.parsing import tokenize, frequency_table
-
-
-class paragraph_iter(object):
-    def __init__(self, html):
-        self.soup  = bs4.BeautifulSoup(html)
-
-        doc = self.soup.doc
-        
-        self.id    = doc["id"]
-        self.title = doc["title"]
-        self.url   = doc["url"]
-
-        self.paragraphs = []
-        blocks = doc.findAll(text=True,recursive=False)
-        for block in blocks:
-            for p in block.split('\n'):
-                p = p.strip()
-                if len(p)>20:
-                    self.paragraphs.append(p)
-
-    def __getitem__(self,i):
-        return self.paragraphs[i]
+from src.parsing import tokenize, frequency_table, paragraph_iter
 
 def token_block_iter(title,html):
 
