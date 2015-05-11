@@ -87,7 +87,7 @@ Used [Extremely Random Trees](http://scikit-learn.org/stable/modules/ensemble.ht
 ====
 
 # Does it work?
-Yes! (Examples incoming). Still requires a human to construct titles and filter. Mistaken concentrates on movie & book plot summaries (if they happened in real life they would be exciting!).
+Yes! (Examples incoming). Still requires a human to construct titles and filter. Mistakenly concentrates on movie & book plot summaries (if they happened in real life they would be exciting!).
 
 ====+
 
@@ -97,24 +97,26 @@ shhhhh.... secretly submitting to reddit soon
 ====*
 # Examples!
 
-## Bubble wrap
+## [Bubble wrap](http://en.wikipedia.org/wiki/Bubble_wrap)
 
 "Bubble wrap" is a generic trademark owned by Sealed Air Corporation. In 1957 two inventors named Alfred Fielding and Marc Chavannes were *attempting to create a three-dimensional plastic wallpaper*. Although the idea was a failure, they found that what they did make could be used as packing material. Sealed Air Corp. was co-founded by Alfred Fielding.
 ====*
 # Examples!
 
-##DineEquity
+## [DineEquity](http://en.wikipedia.org/wiki/DineEquity)
 
 Julia Stewart, who originally *worked as a waitress at IHOP and worked her way up through the restaurant industry, became Chief Executive Officer* of IHOP Corporation. She had previously been President of Applebee’s, but left after being overlooked for that company's CEO position. She became CEO of IHOP in 2001, and returned to manage her old company due to the acquisition.
-
 ====*
 # Examples!
 
-###George R. R. Martin
+## [George R. R. Martin](http://en.wikipedia.org/wiki/George_R._R._Martin)
 
 Martin is *opposed to fan fiction*, believing it to be copyright infringement and a *bad exercise for aspiring writers*.
-
-
+====*
+# Examples!
+## [Andy Kaufman](http://en.wikipedia.org/wiki/Andy_Kaufman)
+At Thanksgiving dinner on Long Island, New York, in November 1983, several family members openly expressed worry about Kaufman's persistent coughing. He claimed that he had been coughing for nearly a month, visited his doctor, and been told that nothing was wrong. When he returned to Los Angeles, he consulted a physician, then checked himself into Cedars-Sinai Hospital for a series of medical tests. A few days later, he was diagnosed with an extremely rare type of lung cancer. _Though Kaufman almost never smoked cigarettes, it was speculated by his doctors that he *may have developed lung cancer from repeated exposure to second-hand smoke while performing in nightclubs where smoking was permitted during that period.*_
+&& Good example of hearsay on Wikipedia, has since been removed!
 ====
 
 
