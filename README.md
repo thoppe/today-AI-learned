@@ -1,7 +1,7 @@
 # today-AI-learned
 Machine learning reddit's [today-I-learned](http://thoppe.github.io/today-AI-learned/#/) (TIL) subreddit to mine for new and interesting things.
 
-From the [DC Hack and Tell](http://www.meetup.com/DC-Hack-and-Tell/) Round 20: Severe Municipal Jazz, May 11, 2015, [presentation link](http://thoppe.github.io/today-ai-learned/index.html).
+From the [DC Hack and Tell](http://www.meetup.com/DC-Hack-and-Tell/) Round 20: Severe Municipal Jazz, May 11, 2015, [presentation link](http://thoppe.github.io/today-AI-learned/index.html).
 
 ## Data collection
   
