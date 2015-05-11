@@ -52,8 +52,97 @@
 </section><section class="vertical-stack">
 <section   class="vertical-slide">
 <p>
-<h1>I <i class="fa fa-heart"></i> data</h1><h1>I <i class="fa fa-heart"></i> a good API</h1><em>but the internet does not always love me back</em></p>
+<h1>The goal</h1></p>
+<br>
+<p>
+<h2>Train a machine to find</h2><h2>new & interesting things</h2></p>
+<br>
+<p>
+<div class="reference_footnote">Requires a corpus of interesting things...</div></p>
 </section><section   class="vertical-slide">
+<p>
+<h2>Supervised learning</h2><strong><a href="http://www.reddit.com/r/todayilearned/">r/TIL</a></strong>, a subreddit short for <em>Today I Learned</em></p>
+<figure>
+    <a href="figures/TIL_example.png">
+    <img class="" src="figures/TIL_example.png" >
+    </a>
+    
+    </figure>
+</section><section   class="vertical-slide">
+<p>
+<h2>Keep only wikipedia data</h2>Filter for consistant writing style...</p>
+<figure>
+    <a href="figures/TIL_example2.png">
+    <img class="" src="figures/TIL_example2.png" >
+    </a>
+    
+    </figure>
+</section>
+</section><section class="vertical-stack">
+<section   class="vertical-slide">
+<p>
+<h2>Data collection</h2></p>
+<br>
+<ul><li>Download all popular posts with <code>score>1000</code> for 2013 and 2014 (~5000)</li>
+<li>Download wikipedia</li>
+<li>Cross-reference each post to the correct wikipedia <em>paragraph</em></li></ul>
+<br>
+<ul><li>Built True positives (known TIL's)</li>
+<li>Built Decoys (other paragraphs in TIL's)</li>
+<li>Built unknown samples (rest of Wikipedia)</li></ul>
+<br>
+<p>
+<div class="reference_footnote">Assume that most of wikipeida isn't interesting...</div></p>
+</section><section   class="vertical-slide">
+<p>
+<h2>Data Wrangling</h2><h3>Tokenize</h3></p>
+<pre><code class=python>&gt;&gt; &quot;Good muffins cost $3.88\nin New York&quot;
+['Good', 'muffins', 'cost', 'TOKEN_MONEY', 'in', 'New', 'York', 'TOKEN_EOS']</code></pre>
+<p>
+<h3>Remove "stop words"</h3></p>
+<pre><code class=python>&gt;&gt; &quot;I sat on the rock&quot;
+['I', 'sat', 'on', 'rock']</code></pre>
+<p>
+<h3>Stem words</h3></p>
+<pre><code class=python>&gt;&gt; stem(&quot;factionally&quot;)
+'faction'</code></pre>
+<p>
+<h3>"Entropy" vectors</h3>counts the unqiueness of each word to the rest of the entry,<br>local <code>TF-IDF</code> (term frequency-inverse document frequency)</p>
+</section><section   class="vertical-slide">
+<p>
+<h2>Feature generation</h2>Used Word2Vec (developed by Google), weighted by local article <code>TF-IDF</code></p>
+<br>
+<pre><code class=python>&gt;&gt;&gt; model.most_similar(positive=['woman', 'king'], negative=['man'])
+[('queen', 0.50882536), ...]
+&gt;&gt;&gt; model.doesnt_match(&quot;breakfast cereal dinner lunch&quot;.split())
+'cereal'
+&gt;&gt;&gt; model.similarity('woman', 'man')
+0.73723527
+&gt;&gt;&gt; model['computer']  # raw numpy vector of a word
+array([-0.00449447, -0.00310097,  0.02421786, ...], dtype=float32)</code></pre>
+<br>
+<p>
+Uses far fewer features to store relationships between words!</p>
+</section><section   class="vertical-slide">
+<p>
+<h2>Modeling training</h2>Used <a href="http://scikit-learn.org/stable/modules/ensemble.html">Extremely Random Trees</a>, variant of Random Tree classifier.</p>
+<pre><code class=python>Training classifer
+Test Accuracy: 0.878;    Test Accuracy on TP: 0.116;   Test Accuracy on TN: 0.998</code></pre>
+<figure>
+    <a href="figures/ROC_ExtraTreeClass.png">
+    <img class="" src="figures/ROC_ExtraTreeClass.png" height="550px">
+    </a>
+    
+    </figure>
+</section>
+</section><section class="vertical-stack">
+<section   class="vertical-slide">
+<p>
+<h1>Does it work?</h1></p>
+<br>
+<br>
+<br>
+<br>
 <p>
 <h1>Thanks you!</h1></p>
 <br>
