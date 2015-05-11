@@ -42,7 +42,7 @@ Here, perhaps lies the most contentious part of the project, the construction of
 
 ##### [score.py](score.py)
 
-With the classifier in hand, the next step is score each and every paragraph in Wikipedia. The classifier marks about 10 per 10000 as potential candidates.
+With the classifier in hand, the next step is score each and every paragraph in Wikipedia. The classifier marks about 6 per 10000 as potential candidates.
 
 ##### [report.py](report.py)
 
