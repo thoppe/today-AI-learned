@@ -1,6 +1,8 @@
 # today-AI-learned
 Machine learning reddit's [today-I-learned](https://www.reddit.com/r/todayilearned/) (TIL) subreddit to mine for new and interesting things.
 
+From the [DC Hack and Tell](http://www.meetup.com/DC-Hack-and-Tell/) Round 20: Severe Municipal Jazz, May 11, 2015, [presentation link](http://thoppe.github.io/today-ai-learned/index.html).
+
 ## Data collection
   
 Supervised machine learning requires a massive tagged collection of high-quality data to be effective. Fortunately the past submissions of to r/TIL have done just that. Redditors have carefully curated a selection of posts that they collectively find interesting through their voting system. We can filter these posts to just those that point to Wikipedia as a source. This way, the source of each post uses a somewhat standardized language and grammar.
