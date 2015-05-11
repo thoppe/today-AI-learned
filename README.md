@@ -38,7 +38,15 @@ Using Word2Vec requires two complete passes over the data, though it allows you 
 
 ##### [train.py](train.py)
 
-Here, perhaps lies the most contentious part of the project, the construction of the classifier. In the end, I settled for the Extremely Random Trees implementation in [`scikit-learn`](http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.ExtraTreesClassifier.html). This classifier, while fairly poor at detecting new true positives at about 15%, was extremely proficient at marking the true negatives. Since the assumption is that most of Wikipedia is, in fact, quite boring, this will help narrow down the results immensely.
+Here, perhaps lies the most contentious part of the project, the construction of the classifier. In the end, I settled for the Extremely Random Trees implementation in [`scikit-learn`](http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.ExtraTreesClassifier.html). This classifier, while fairly poor at detecting new true positives at about 10%, was extremely proficient at marking the true negatives. Since the assumption is that most of Wikipedia is, in fact, quite boring, this will help narrow down the results immensely.
+
+    Training classifer
+    Test Accuracy: 0.878
+    Test Accuracy on TP: 0.116
+    Test Accuracy on TN: 0.998
+
+![](figures/ROC_ExtraTreeClass.png)
+  
 
 ##### [score.py](score.py)
 
