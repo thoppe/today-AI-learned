@@ -1,4 +1,4 @@
-title  = "Automagic API"
+title  = "today-AI-learned"
 author = "Travis Hoppe"
 target = "pres.md"
 html_target = "index.html"

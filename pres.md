@@ -34,9 +34,13 @@ Filter for consistent writing style...
 + Cross-reference each post to the correct Wikipedia _paragraph_
 + Built True positives (known TIL's)
 + Built Decoys (other paragraphs in TIL's)
-+ Built unknown samples (rest of Wikipedia)
++ Built unknown samples (rest of Wikipedia*)
 
-&& Assume that most of Wikipedia isn't interesting...
+
+### Use all the tools!
+Project uses modules `sqlite3`, `requests`, `bs4`, `pandas`, `numpy`, `scikit-learn`, `gensim`, `praw`, `wikipedia`, `nltk`, `stemmming.porter2`
+
+&& *Assume that most of Wikipedia isn't interesting...
 
 ====*
 
@@ -88,11 +92,9 @@ Yes! (Examples incoming). Still requires a human to construct titles and filter.
 ====+
 
 # Does it pass the Turning test?
-
 shhhhh.... secretly submitting to reddit soon
 
-
-====
+====*
 # Examples!
 
 ## Bubble wrap

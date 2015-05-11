@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
 
-    <title>Automagic API</title>
+    <title>today-AI-learned</title>
     
     <meta name="description" content="">
     <meta name="author" content="Travis Hoppe">
@@ -88,10 +88,14 @@
 <li>Cross-reference each post to the correct Wikipedia <em>paragraph</em></li>
 <li>Built True positives (known TIL's)</li>
 <li>Built Decoys (other paragraphs in TIL's)</li>
-<li>Built unknown samples (rest of Wikipedia)</li></ul>
+<li>Built unknown samples (rest of Wikipedia*)</li></ul>
+<br>
 <br>
 <p>
-<div class="reference_footnote">Assume that most of Wikipedia isn't interesting...</div></p>
+<h3>Use all the tools!</h3>Project uses modules <code>sqlite3</code>, <code>requests</code>, <code>bs4</code>, <code>pandas</code>, <code>numpy</code>, <code>scikit-learn</code>, <code>gensim</code>, <code>praw</code>, <code>wikipedia</code>, <code>nltk</code>, <code>stemmming.porter2</code></p>
+<br>
+<p>
+<div class="reference_footnote">*Assume that most of Wikipedia isn't interesting...</div></p>
 </section><section   class="vertical-slide">
 <p>
 <h2>Data Wrangling</h2><h3>Tokenize</h3></p>
@@ -140,13 +144,8 @@ Test Accuracy: 0.878;    Test Accuracy on TP: 0.116;   Test Accuracy on TN: 0.99
 </section><section class="vertical-stack">
 <section   class="vertical-slide">
 <p>
-<h1>Does it work?</h1>Yes! (Examples incoming). Still requires a human to construct titles and filter. Mistaken concentrates on movie & book plot summaries (if they happened in real life they would be exciting!).<div class="fragment"><h1>Does it pass the Turning test?</h1></p>
-<br>
-<p>
-shhhhh.... secretly submitting to reddit soon<br></div></p>
-</section>
-</section><section class="vertical-stack">
-<section   class="vertical-slide">
+<h1>Does it work?</h1>Yes! (Examples incoming). Still requires a human to construct titles and filter. Mistaken concentrates on movie & book plot summaries (if they happened in real life they would be exciting!).<div class="fragment"><h1>Does it pass the Turning test?</h1>shhhhh.... secretly submitting to reddit soon<br></div></p>
+</section><section   class="vertical-slide">
 <p>
 <h1>Examples!</h1></p>
 <br>
