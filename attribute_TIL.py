@@ -13,7 +13,7 @@ PARALLEL_FLAG = True
 #PARALLEL_FLAG = False
 
 def reddit_json():
-    F_REDDIT = sorted(glob.glob("data/reddit/*.json"))
+    F_REDDIT = sorted(glob.glob("data/reddit/*.json"))[::-1]
     for f_json in F_REDDIT:
         with codecs.open(f_json,'r','utf-8') as FIN:
             js = json.load(FIN)
@@ -88,6 +88,7 @@ def find_TIL_match(js):
     # Row normalize, thus unique words count for more!
     df /= df.sum(axis=0)
     df.fillna(0,inplace=True)
+
 
     # Find the top scoring paragraph
     score = df.sum(axis=1)

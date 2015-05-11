@@ -2,10 +2,11 @@ import sqlite3, itertools
 import numpy as np
 from sklearn.externals import joblib
 from gensim.models.word2vec import Word2Vec
+import src.build_features as feat
 
 conn_decoy = sqlite3.connect("db/decoy.db")
 
-f_model = "db/model.word2vec"
+f_features = "db/features.word2vec"
 f_clf   = "db/clf.joblib"
 f_norm_scale = "db/scale.joblib"
 
@@ -13,7 +14,7 @@ scalar = joblib.load(f_norm_scale)
 clf = joblib.load(f_clf)
 
 print "Loading model"
-model = Word2Vec.load(f_model)
+features = Word2Vec.load(f_features)
 dimension = 100
 
 # Create the score table
@@ -25,17 +26,16 @@ CREATE TABLE IF NOT EXISTS score (
 ); 
 
 INSERT INTO score (idx)
-SELECT idx FROM decoy;
+SELECT decoy_idx FROM decoy;
 '''
 #print "Templating"
 #conn_decoy.executescript(cmd_template)
 
-def count_WIKI_corpus():
-    cmd_count = "SELECT MAX(_ROWID_) FROM decoy LIMIT 1"
-    return conn_decoy.execute(cmd_count).next()[0]
+total_samples = feat.count_WIKI_corpus()
 
-total_samples = count_WIKI_corpus()
-
+cmd_check_remaining = '''SELECT COUNT(*) FROM score WHERE score IS NULL'''
+score_remaining = conn_decoy.execute(cmd_check_remaining).next()
+print "There are {} left to score".format(score_remaining)
 
 def getWordVecs(text,weight,model,dimension):
 
@@ -49,7 +49,6 @@ def getWordVecs(text,weight,model,dimension):
         if word in model:
             vec   += single_entropy*model[word]
             count += single_entropy
-
             
     vec /= count
     if np.isnan(vec).any():
@@ -58,18 +57,18 @@ def getWordVecs(text,weight,model,dimension):
     return vec
 
 
-def decoy_vec_iter(chunk_size = 10**4):
+def decoy_vec_iter():
 
     # Select the values we haven't seen before
     cmd_select = '''
-    SELECT A.idx, A.wikitext,A.weights FROM decoy AS A
-    JOIN score AS B ON A.idx=B.idx
+    SELECT A.decoy_idx, A.tokens,A.weights FROM decoy AS A
+    JOIN score AS B ON A.decoy_idx=B.idx
     WHERE B.score IS NULL
     '''
     cursor = conn_decoy.execute(cmd_select)
     for idx,text,w_str in cursor:
         w = np.fromstring(w_str[1:-1],sep=',')
-        vec = getWordVecs(text,w,model,dimension)
+        vec = getWordVecs(text,w,features,dimension)
         
         yield idx, scalar.transform(vec)
 
@@ -96,20 +95,20 @@ WHERE idx=?
 '''
 
 
-DATA = grouper(decoy_vec_iter(), 100)
+DATA = grouper(decoy_vec_iter(), 10000)
 ITR = itertools.imap(predict_block, DATA)
+
 #import multiprocessing
-#P = multiprocessing.Pool()
+#P = multiprocessing.Pool(4)
 #ITR = P.imap(predict_block, DATA)
 
 for k,(score,IDX) in enumerate(ITR):
     print k, sum(score)
     conn_decoy.executemany(cmd_update, zip(score,IDX))
 
-    if k and k%1000==0:
+    if k and k%10==0:
         print "Commiting"
         conn_decoy.commit()
-        exit()
 
 conn_decoy.commit()
 

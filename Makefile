@@ -1,3 +1,6 @@
+features:
+	python src/build_features.py
+
 download_wikipedia:
 	python src/wikipedia_dl.py
 

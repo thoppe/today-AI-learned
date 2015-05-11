@@ -1,151 +1,58 @@
-import sqlite3, cPickle, itertools
-from src.parsing import tokenize
+import sqlite3, itertools
 import numpy as np
 from gensim.models.word2vec import Word2Vec
+
 from sklearn.cross_validation import train_test_split
 from sklearn.externals import joblib
 
 from sklearn import preprocessing
- 
+import src.build_features as feat
 
-# Addtional stop-words gleaned from trial-and-error
-#extra_stop_words = ["would","us","could","get","000","amp","go","ad","uk"
-#                    "mt","ny","ii","tv","1100ad"]
-
-# Number of entries to skip when training,
-# if not used leads to massive training time
-#_SKIP_DECOY = 1
-#_SQL_LIMIT  = 10**10
+#FLAG_BUILD_DECOY_LIST = True
+FLAG_BUILD_DECOY_LIST = False
 
 # When training, how big of a decoy set to use
 _DECOY_PROPORTION = 5
 
-conn_decoy = sqlite3.connect("db/decoy.db")
-conn_train = sqlite3.connect("db/training.db")
+conn_decoy = feat.conn_decoy
+conn_train = feat.conn_train
 
-f_model = "db/model.word2vec"
 f_clf   = "db/clf.joblib"
 f_norm_scale = "db/scale.joblib"
 
-def decoy_corpus_iter(offset=0,skip=1,limit=10**10):
-    cmd_select = "SELECT wikitext FROM decoy LIMIT {}".format(limit)
+total_samples = feat.count_WIKI_corpus()
+
+def query_skip_decoys():
+
+    cmd_select = '''SELECT tokens,weights FROM decoy AS A
+    JOIN skip_decoy_query AS B ON A.decoy_idx=B.decoy_idx
+    '''
     cursor = conn_decoy.execute(cmd_select)
-    
-    for _ in xrange(offset):
-        cursor.next()
-        
-    for k,(text,) in enumerate(cursor):
-        if k and k%10000==0:
-            print "Loaded {:0.4f}% samples".format(k/float(total_samples))
-        if k%skip==0:
-            yield unicode(text).split()
-
-def TIL_corpus_iter(skip=1):
-    cmd_select = "SELECT unprocessed_wikitext FROM training"
-
-    cursor = conn_train.execute(cmd_select)
-    for k,(text,) in enumerate(cursor):
-        if k%skip==0:
-            text = unicode(text)
-            text = ' '.join(set(tokenize(text)))
-            yield text.split()
-
-def count_TIL_corpus():
-    cmd_count = "SELECT MAX(_ROWID_) FROM training LIMIT 1"
-    return conn_train.execute(cmd_count).next()[0]
-
-def count_TIL_false_pos():
-    cmd_count = "SELECT MAX(_ROWID_) FROM false_positives LIMIT 1"
-    return conn_train.execute(cmd_count).next()[0]
-
-def count_WIKI_corpus():
-    cmd_count = "SELECT MAX(_ROWID_) FROM decoy LIMIT 1"
-    return conn_decoy.execute(cmd_count).next()[0]
-
-total_samples = count_WIKI_corpus()
-
-class chainer(object):
-    ''' Chains iterators together and keeps track of their size '''
-    def __init__(self,*args):
-        self.ITRS  = args
-        self.counts = []
-    def __iter__(self):
-        for itr in self.ITRS:
-            count = 0
-            for item in itr:
-                count += 1
-                yield item
-            self.counts.append(count)
-    def get_sizes(self):
-        return self.counts
-
-##############################################################################
-
-def build_features():
-    print "Calculating feature vector"
-    ITR_decoy = decoy_corpus_iter(offset=0,
-                                  skip=_SKIP_DECOY,
-                                  limit=_SQL_LIMIT)
-    ITR_train = TIL_corpus_iter()
-    ITR = chainer(ITR_train, ITR_decoy)
-
-    model = Word2Vec(workers=8)
-    model.build_vocab(ITR)
-
-    # Rebuild the iterators
-    ITR_decoy = decoy_corpus_iter(offset=0,
-                                  skip=_SKIP_DECOY,
-                                  limit=_SQL_LIMIT)   
-    ITR_train = TIL_corpus_iter()
-    ITR = chainer(ITR_train, ITR_decoy)
-    model.train(ITR)
-
-    print "Reducing the model"
-    model.init_sims(replace=True)
-
-    print "Saving updated model"
-    model.save(f_model)
-
-###################################################################
-
-def TIL_full_corpus_iter():
-    cmd_select = "SELECT wikitext,weights FROM training"
-
-    cursor = conn_train.execute(cmd_select)
-    for (text,weight_str) in cursor.fetchall():
+    for text,weight_str in cursor:
         # Load the entropy weight
         w = np.fromstring(weight_str[1:-1],sep=',')
         yield text, w
+            
 
-def TIL_false_pos_iter():
-    cmd_select = "SELECT wikitext,weights FROM false_positives"
+def build_skip_query(skip_n):
+    cmd_template = '''
+    DROP TABLE IF EXISTS skip_decoy_query;
+    CREATE TABLE skip_decoy_query (decoy_idx INTEGER PRIMARY KEY);'''
+    conn_decoy.executescript(cmd_template)
+    
+    cmd_find = '''
+    SELECT decoy_idx, wikipedia_title 
+    FROM decoy WHERE decoy_idx%{}==0'''.format(skip_n)
+    cmd_insert = '''INSERT INTO skip_decoy_query (decoy_idx) VALUES (?)'''
+    cursor = conn_decoy.execute(cmd_find)
+    
+    for idx,title in cursor:
+        print idx, title
+        conn_decoy.execute(cmd_insert, (idx,))
 
-    cursor = conn_train.execute(cmd_select)
-    for (text,weight_str) in cursor.fetchall():
-        # Load the entropy weight
-        w = np.fromstring(weight_str[1:-1],sep=',')
-        yield text, w  
-        
-
-def query_random_decoys(size):
-    IDX_SET = np.random.randint(0, count_WIKI_corpus()-1, size=size)
-
-    def grouper(iterable, n):
-        return itertools.izip_longest(*[iter(iterable)]*n)
-
-    cmd_select = "SELECT wikitext,weights FROM decoy WHERE idx IN {}"
-    chunk_size = 100
-    for block in grouper(IDX_SET, chunk_size):
-        block = (x for x in block if x is not None)
-        cmd = cmd_select.format(tuple(block))
-        cursor = conn_decoy.execute(cmd)
-        for text,weight_str in cursor.fetchall():
-
-            # Load the entropy weight
-            w = np.fromstring(weight_str[1:-1],sep=',')
-            yield text, w
-
-def getWordVecs(text,weight,model,dimension):
+    conn_decoy.commit()
+    
+def getWordVecs(text,weight,features,dimension):
 
     # The vector is the entropy-weighted average of each word
     vec = np.zeros(dimension).reshape((1, dimension))
@@ -154,11 +61,9 @@ def getWordVecs(text,weight,model,dimension):
     count  = 0.0
     
     for single_entropy,word in zip(weight,tokens):
-
-        if word in model:
-            vec   += single_entropy*model[word]
+        if word in features:
+            vec   += single_entropy*features[word]
             count += single_entropy
-
             
     vec /= count
     if np.isnan(vec).any():
@@ -169,49 +74,67 @@ def getWordVecs(text,weight,model,dimension):
 
 def train_model():
 
-    print "Loading model"
-    model = Word2Vec.load(f_model)
+    TIL_n     = feat.count_TIL_corpus()
+    decoy_n   = TIL_n*_DECOY_PROPORTION
+    FP_n      = feat.count_TIL_false_pos()
+
+    wiki_n    = feat.count_WIKI_corpus()
+    skip_wiki_n =  wiki_n // decoy_n
+
+    # Keep the number of false positives in about the same Order-of-Mag
+    skip_FP  = FP_n // TIL_n
+    print "Skipping every {} value in FP".format(skip_FP)
+
+    if FLAG_BUILD_DECOY_LIST:
+        build_skip_query(skip_wiki_n)
+
+    print "Loading features"
+    features = Word2Vec.load(feat.f_features)
     dimension = 100 # default dimension
+  
+
+    ITR_decoy = query_skip_decoys()
 
     print "Building training set"
-    TIL_n     = count_TIL_corpus()
-    decoy_n   = TIL_n*_DECOY_PROPORTION
-    FP_n      = count_TIL_false_pos()
+    ITR_train = list(feat.TIL_full_corpus_iter())
 
-    print "Building full corpus iter"    
-    ITR_train = TIL_full_corpus_iter()
-    ITR_decoy = query_random_decoys(decoy_n)
-    ITR_FP    = TIL_false_pos_iter()
+    print "Building the false positive set"
+    ITR_FP    = list(feat.TIL_false_pos_iter(skip_FP))
 
-    ITR = chainer(ITR_train, ITR_FP, ITR_decoy)
-    Y = np.zeros(TIL_n+decoy_n+FP_n)
+    print "Building corpus iter"
+    ITR = feat.chainer(ITR_train, ITR_FP, ITR_decoy)
+    ITR = list(ITR)
+    
+    Y = np.zeros(len(ITR))
     Y[:TIL_n] = 1.0
 
     TTS = train_test_split
-    x_train, x_test, y_train, y_test = TTS(list(ITR), Y, test_size=0.2)
+    x_train, x_test, y_train, y_test = TTS(ITR, Y, test_size=0.2)
 
     print "Proportion of answers {}/{}".format(y_train.sum(), y_test.sum())
 
-    # Train the scaler on the test data
-    vec_test = np.concatenate([getWordVecs(text,weight,model,dimension)
-                               for text,weight in x_test])
-    
-    scaler = preprocessing.StandardScaler().fit(vec_test)
+    print "Calculating the wordVecs for train"
+    vec_train = np.concatenate([getWordVecs(text,weight,features,dimension)
+                                for text,weight in x_train])
+        
+    print "Building the scalar"
+    scaler = preprocessing.StandardScaler().fit(vec_train)
+
     print "Saving the scaler"
     joblib.dump(scaler, f_norm_scale)
 
+    print "Scaling train vectors"
+    vec_train = scaler.transform(vec_train)
 
+    print "Calculating the wordVecs for test"
+    vec_test = np.concatenate([getWordVecs(text,weight,features,dimension)
+                               for text,weight in x_test])
+
+    print "Scaling test vectors"
     vec_test = scaler.transform(vec_test)
 
-    # Build the scaled train vectors
-    vec_train = np.concatenate([getWordVecs(text,weight,model,dimension)
-                                for text,weight in x_train])
-    
-    vec_train = scaler.transform(vec_train)
-        
-    print vec_test.shape
-    print vec_train.shape
-
+    print "Train size/TP in sample", vec_train.shape, (y_train==1).sum()
+    print "Test  size/TP in sample", vec_test.shape, (y_test==1).sum()
     print "Training classifer"
 
     #from sklearn.linear_model import SGDClassifier as Classifier
@@ -219,13 +142,17 @@ def train_model():
     #from sklearn.linear_model import BayesianRidge as Classifier
     #from sklearn.naive_bayes import BernoulliNB as Classifier
     #from sklearn.naive_bayes import GaussianNB as Classifier
-
+    #from sklearn.naive_bayes import GaussianNB as Classifier
+    #from sklearn.ensemble import RandomForestClassifier as Classifier
+    from sklearn.ensemble import ExtraTreesClassifier as Classifier
+    
     # This seems to be the best... but high FP rate
-    from sklearn.naive_bayes import BernoulliNB as Classifier    
+    #from sklearn.naive_bayes import BernoulliNB as Classifier    
  
     #clf = Classifier(loss='log', penalty='l1',verbose=2) # SGD
     #clf =  Classifier(C=2500,verbose=2) # LogisiticRegression
-    clf =  Classifier() # Naive Bayes
+    #clf =  Classifier() # Naive Bayes
+    clf = Classifier(n_estimators=200,n_jobs=8) # ExtraTrees
     
     clf.fit(vec_train, y_train)  
 
@@ -258,5 +185,4 @@ def train_model():
     plt.show()
 
 if __name__ == "__main__":
-    #build_features()
     train_model()
