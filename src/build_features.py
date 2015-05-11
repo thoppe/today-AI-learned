@@ -3,9 +3,6 @@ from gensim.models.word2vec import Word2Vec
 from parsing import tokenize
 import numpy as np
 
-#help(Word2Vec)
-#exit()
-
 # Number of entries to skip when training,
 # if not used leads to massive training time
 _SKIP_DECOY = 1
