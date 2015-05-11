@@ -70,7 +70,7 @@
     </figure>
 </section><section   class="vertical-slide">
 <p>
-<h2>Keep only wikipedia data</h2>Filter for consistant writing style...</p>
+<h2>Keep only Wikipedia data</h2>Filter for consistent writing style...</p>
 <figure>
     <a href="figures/TIL_example2.png">
     <img class="" src="figures/TIL_example2.png" >
@@ -84,19 +84,18 @@
 <h2>Data collection</h2></p>
 <br>
 <ul><li>Download all popular posts with <code>score>1000</code> for 2013 and 2014 (~5000)</li>
-<li>Download wikipedia</li>
-<li>Cross-reference each post to the correct wikipedia <em>paragraph</em></li></ul>
-<br>
-<ul><li>Built True positives (known TIL's)</li>
+<li>Download Wikipedia</li>
+<li>Cross-reference each post to the correct Wikipedia <em>paragraph</em></li>
+<li>Built True positives (known TIL's)</li>
 <li>Built Decoys (other paragraphs in TIL's)</li>
 <li>Built unknown samples (rest of Wikipedia)</li></ul>
 <br>
 <p>
-<div class="reference_footnote">Assume that most of wikipeida isn't interesting...</div></p>
+<div class="reference_footnote">Assume that most of Wikipedia isn't interesting...</div></p>
 </section><section   class="vertical-slide">
 <p>
 <h2>Data Wrangling</h2><h3>Tokenize</h3></p>
-<pre><code class=python>&gt;&gt; &quot;Good muffins cost $3.88\nin New York&quot;
+<pre><code class=python>&gt;&gt; &quot;Good muffins cost $3.88\n in New York&quot;
 ['Good', 'muffins', 'cost', 'TOKEN_MONEY', 'in', 'New', 'York', 'TOKEN_EOS']</code></pre>
 <p>
 <h3>Remove "stop words"</h3></p>
@@ -107,7 +106,7 @@
 <pre><code class=python>&gt;&gt; stem(&quot;factionally&quot;)
 'faction'</code></pre>
 <p>
-<h3>"Entropy" vectors</h3>counts the unqiueness of each word to the rest of the entry,<br>local <code>TF-IDF</code> (term frequency-inverse document frequency)</p>
+<h3>"Entropy" vectors</h3>counts the uniqueness of each word to the rest of the entry,<br>local <code>TF-IDF</code> (term frequency-inverse document frequency)</p>
 </section><section   class="vertical-slide">
 <p>
 <h2>Feature generation</h2>Used Word2Vec (developed by Google), weighted by local article <code>TF-IDF</code></p>
@@ -123,10 +122,13 @@ array([-0.00449447, -0.00310097,  0.02421786, ...], dtype=float32)</code></pre>
 <br>
 <p>
 Uses far fewer features to store relationships between words!</p>
+<br>
+<p>
+<div class="reference_footnote">Also TF-IDF shows reddit is preoccupied with Hitler and Pokemon...</div></p>
 </section><section   class="vertical-slide">
 <p>
 <h2>Modeling training</h2>Used <a href="http://scikit-learn.org/stable/modules/ensemble.html">Extremely Random Trees</a>, variant of Random Tree classifier.</p>
-<pre><code class=python>Training classifer
+<pre><code class=python>Training classifier
 Test Accuracy: 0.878;    Test Accuracy on TP: 0.116;   Test Accuracy on TN: 0.998</code></pre>
 <figure>
     <a href="figures/ROC_ExtraTreeClass.png">
@@ -138,11 +140,42 @@ Test Accuracy: 0.878;    Test Accuracy on TP: 0.116;   Test Accuracy on TN: 0.99
 </section><section class="vertical-stack">
 <section   class="vertical-slide">
 <p>
-<h1>Does it work?</h1></p>
+<h1>Does it work?</h1>Yes! (Examples incoming). Still requires a human to construct titles and filter. Mistaken concentrates on movie & book plot summaries (if they happened in real life they would be exciting!).<div class="fragment"><h1>Does it pass the Turning test?</h1></p>
 <br>
+<p>
+shhhhh.... secretly submitting to reddit soon<br></div></p>
+</section>
+</section><section class="vertical-stack">
+<section   class="vertical-slide">
+<p>
+<h1>Examples!</h1></p>
 <br>
+<p>
+<h2>Bubble wrap</h2></p>
 <br>
+<p>
+"Bubble wrap" is a generic trademark owned by Sealed Air Corporation. In 1957 two inventors named Alfred Fielding and Marc Chavannes were <strong>attempting to create a three-dimensional plastic wallpaper</strong>. Although the idea was a failure, they found that what they did make could be used as packing material. Sealed Air Corp. was co-founded by Alfred Fielding.</p>
+</section><section   class="vertical-slide">
+<p>
+<h1>Examples!</h1></p>
 <br>
+<p>
+<h2>DineEquity</h2></p>
+<br>
+<p>
+Julia Stewart, who originally <strong>worked as a waitress at IHOP and worked her way up through the restaurant industry, became Chief Executive Officer</strong> of IHOP Corporation. She had previously been President of Applebee’s, but left after being overlooked for that company's CEO position. She became CEO of IHOP in 2001, and returned to manage her old company due to the acquisition.</p>
+</section><section   class="vertical-slide">
+<p>
+<h1>Examples!</h1></p>
+<br>
+<p>
+<h3>George R. R. Martin</h3></p>
+<br>
+<p>
+Martin is <strong>opposed to fan fiction</strong>, believing it to be copyright infringement and a <strong>bad exercise for aspiring writers</strong>.</p>
+</section>
+</section><section class="vertical-stack">
+<section   class="vertical-slide">
 <p>
 <h1>Thanks you!</h1></p>
 <br>
