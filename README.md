@@ -67,6 +67,13 @@ The module `mediawiki-utils` can do this, but stupidly requires python3.
 Thus the cross-reference program makes a system call to properly encode name as a search query for reddit.
 We then take the top search result (if exists) and store it; this info will serve as the criteria for a post/repost.
 
-##### Find the best time to post!
+##### [plot_times.py](plot_times.py)
 
-to do...
+With potential TIL candidates identified, let's find the best time to post!
+Note that we are going to posit that post time has a casual relationship with the ultimate score.
+Since reddit is dynamic and viewership is dependent on a steady-stream of upvotes, this should be a reasonable assumption.
+Going back over our training set, we can map the distribution of times for a r/TIL post:
+
+!()[figures/top_TIL_time.png]
+
+it seems like the sweet spot for a submission is between 9AM-11AM.
