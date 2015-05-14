@@ -61,7 +61,7 @@ Report starts building a new database that contains only the positive entries an
 
 ##### [cross_reference.py](cross_reference.py)
 
-Nobody likes a repost (unless it's a better, well-timed one...), so we need to find out what has already been posted to reddit.
+Nobody likes a repost (unless it's better, or more aptly timed...), so we need to find out what has already been posted to reddit.
 To do so, we need a proper search name of the wikipedia article.
 The module `mediawiki-utils` can do this, but stupidly requires python3.
 Thus the cross-reference program makes a system call to properly encode name as a search query for reddit.
@@ -69,11 +69,11 @@ We then take the top search result (if exists) and store it; this info will serv
 
 ##### [plot_times.py](plot_times.py)
 
-With potential TIL candidates identified, let's find the best time to post!
+With the potential TIL candidates identified, let's find the best time to post!
 Note that we are going to posit that post time has a casual relationship with the ultimate score.
 Since reddit is dynamic and viewership is dependent on a steady-stream of upvotes, this should be a reasonable assumption.
 Going back over our training set, we can map the distribution of times for a r/TIL post:
 
-!()[figures/top_TIL_time.png]
+![](figures/top_TIL_time.png)
 
 it seems like the sweet spot for a submission is between 9AM-11AM.
