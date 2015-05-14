@@ -50,10 +50,21 @@ Here, perhaps lies the most contentious part of the project, the construction of
 
 ##### [score.py](score.py)
 
-With the classifier in hand, the next step is score each and every paragraph in Wikipedia. The classifier marks about 6 per 10000 as potential candidates.
+With the classifier solved, the next step is score each and every paragraph in Wikipedia. The classifier marks about 6 per 10000 as potential candidates.
 
 ##### [report.py](report.py)
 
-With the results in hand, we need to prepare the potentially interesting things to a human-readable format!
+With the positives marked, we need to prepare the potentially interesting things to a human-readable format!
+Report starts building a new database that contains only the positive entries and the associated wikipedia text from the original source.
+
+##### [cross_reference.py](cross_reference.py)
+
+Nobody likes a repost (unless it's a better, well-timed one...), so we need to find out what has already been posted to reddit.
+To do so, we need a proper search name of the wikipedia article.
+The module `mediawiki-utils` can do this, but stupidly requires python3.
+Thus the cross-reference program makes a system call to properly encode name as a search query for reddit.
+We then take the top search result (if exists) and store it; this info will serve as the criteria for a post/repost.
+
+##### Find the best time to post!
 
 to do...
