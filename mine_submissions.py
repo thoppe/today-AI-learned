@@ -70,6 +70,7 @@ fmt = u'''\t\t\t\t=== {} ===
 
 s  SKIP!
 x  EXIT PROGRAM
+d  DUMP Interesting
 '''
 
 response = {
@@ -79,9 +80,11 @@ response = {
     "4":"media",
     "x":None,
     "s":None,
+    "d":None,
 }
-
+key='d'
 while True:
+    break
     os.system("clear")
     cursor = conn.execute(cmd_search_new)
     ridx,title,text,url = cursor.next()
@@ -98,7 +101,25 @@ while True:
     if key.lower() == "x":
         exit()
 
+    if key.lower() == "d":
+        break    
+
     if key.lower() != "s":
         conn.execute(cmd_mark_tracking, (ridx,status))
         conn.commit()
-    
+
+
+cmd_search_top = '''
+SELECT 
+A.wikipedia_title, A.wikipedia_text
+FROM report as A
+JOIN human_tracking AS B
+ON A.report_idx==B.report_idx
+WHERE B.status=="interesting"
+'''
+
+if key.lower() == "d":
+    cursor = conn.execute(cmd_search_top)
+    for title,text in cursor:
+        print title,'\t', text
+        

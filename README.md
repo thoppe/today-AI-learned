@@ -81,3 +81,11 @@ it seems like the sweet spot for a submission is between 9AM-11AM!
 What about the bottom r/TIL posts, those that had a score of < 1000? Considering only the ones we found with our algorithm, the posting time is dramatically different:
 
 ![](figures/bottom_TIL_time.png)
+
+##### [mine_submissions.py](mine_submissions.py)
+
+Since we are going to have quite a few false positives, we setup a simple script to help determine quality TIL's. A random unlabeled TIL is pull from the database that hasn't been posted already and is opened on both the screen and the browser to quicky determine if it is "something worth learning".
+
+##### [post_submissions.py](post_submissions.py)
+
+In progress, automated posting on my behalf once clever titles are given for the TIL's.
