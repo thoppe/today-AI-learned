@@ -7,7 +7,9 @@ import sqlite3, itertools, subprocess
 import praw
 
 reddit = praw.Reddit(user_agent='crossref_TIL')
-conn = sqlite3.connect("db/report.db", detect_types=sqlite3.PARSE_DECLTYPES|sqlite3.PARSE_COLNAMES)
+conn = sqlite3.connect("db/report.db",
+                       detect_types=sqlite3.PARSE_DECLTYPES|sqlite3.PARSE_COLNAMES,
+                       timeout=10*10000.)
 cmd_template = '''
 --DROP TABLE IF EXISTS crossref;
 CREATE TABLE IF NOT EXISTS crossref (
