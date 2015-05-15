@@ -76,4 +76,8 @@ Going back over our training set, we can map the distribution of times for a r/T
 
 ![](figures/top_TIL_time.png)
 
-it seems like the sweet spot for a submission is between 9AM-11AM.
+it seems like the sweet spot for a submission is between 9AM-11AM!
+
+What about the bottom r/TIL posts, those that had a score of < 1000? Considering only the ones we found with our algorithm, the posting time is dramatically different:
+
+![](figures/bottom_TIL_time.png)
