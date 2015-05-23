@@ -2,6 +2,7 @@ import sqlite3, itertools, datetime
 import numpy as np
 import webbrowser,os
 
+
 # Reads a single keystroke (why so hard?!)
 def _find_getch():
     try:
@@ -38,15 +39,16 @@ cmd_template = '''
 CREATE TABLE IF NOT EXISTS human_tracking(
     report_idx INTEGER PRIMARY KEY,
     status STRING,
-    submitted_status BOOL DEFAULT 0
-);'''
+    submitted_status BOOL DEFAULT 0,
+    date_classified TIMESTAMP
+);
+'''
 conn.executescript(cmd_template)
 
 cmd_mark_tracking = '''
-INSERT INTO human_tracking (report_idx, status)
-VALUES (?,?)
+INSERT INTO human_tracking (report_idx, status,date_classified)
+VALUES (?,?,?)
 '''
-
 
 cmd_search_new = '''
 SELECT A.report_idx,
@@ -55,9 +57,11 @@ FROM report as A
 JOIN crossref AS B
 ON A.report_idx==B.report_idx
 WHERE positive_search_result=0
+AND A.report_idx NOT IN (SELECT report_idx FROM human_tracking)
 ORDER BY RANDOM()
 LIMIT 1
 '''
+
 
 fmt = u'''\t\t\t\t=== {} ===
 {}
@@ -82,9 +86,9 @@ response = {
     "s":None,
     "d":None,
 }
-key='d'
+
 while True:
-    break
+
     os.system("clear")
     cursor = conn.execute(cmd_search_new)
     ridx,title,text,url = cursor.next()
@@ -105,21 +109,24 @@ while True:
         break    
 
     if key.lower() != "s":
-        conn.execute(cmd_mark_tracking, (ridx,status))
+        time = datetime.datetime.now()
+        conn.execute(cmd_mark_tracking, (ridx,status,time))
         conn.commit()
 
 
 cmd_search_top = '''
 SELECT 
-A.wikipedia_title, A.wikipedia_text
+A.wikipedia_title, B.date_classified, A.wikipedia_text
 FROM report as A
 JOIN human_tracking AS B
 ON A.report_idx==B.report_idx
 WHERE B.status=="interesting"
+ORDER BY date_classified
 '''
+
 
 if key.lower() == "d":
     cursor = conn.execute(cmd_search_top)
-    for title,text in cursor:
-        print title,'\t', text
+    for title,date,text in cursor:
+        print title,'\t', date,'\t',text
         
