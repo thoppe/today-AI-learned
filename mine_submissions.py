@@ -1,7 +1,16 @@
 import sqlite3, itertools, datetime
 import numpy as np
 import webbrowser,os
+from src.parsing import tokenize, frequency_table
 
+'''
+Small interactive program to help a human label the prospective submissions.
+'''
+
+
+conn = sqlite3.connect("db/report.db",
+                       detect_types=sqlite3.PARSE_DECLTYPES|
+                       sqlite3.PARSE_COLNAMES)
 
 # Reads a single keystroke (why so hard?!)
 def _find_getch():
@@ -27,11 +36,6 @@ def _find_getch():
     return _getch
 getch = _find_getch()
 
-
-conn = sqlite3.connect("db/report.db",
-                       detect_types=sqlite3.PARSE_DECLTYPES|
-                       sqlite3.PARSE_COLNAMES)
-
 # Keep track of what we've seen before
 
 cmd_template = '''
@@ -42,6 +46,8 @@ CREATE TABLE IF NOT EXISTS human_tracking(
     submitted_status BOOL DEFAULT 0,
     date_classified TIMESTAMP
 );
+CREATE TABLE IF NOT EXISTS suggestions 
+(report_idx INTEGER PRIMARY KEY);
 '''
 conn.executescript(cmd_template)
 
@@ -62,6 +68,24 @@ ORDER BY RANDOM()
 LIMIT 1
 '''
 
+cmd_search_suggestions = '''
+SELECT report_idx,
+wikipedia_title, wikipedia_text, wikipedia_url
+FROM suggestions as A
+NATURAL JOIN report AS B
+NATURAL JOIN crossref AS C
+LIMIT 1
+'''
+
+cmd_remove_suggestion = '''
+DELETE FROM suggestions
+WHERE report_idx=?
+'''
+
+
+def get_remaining_suggestions():
+    cursor = conn.execute("SELECT COUNT(*) FROM suggestions")
+    return cursor.next()[0]
 
 fmt = u'''\t\t\t\t=== {} ===
 {}
@@ -90,9 +114,20 @@ response = {
 while True:
 
     os.system("clear")
-    cursor = conn.execute(cmd_search_new)
+    SUGGESTION_FLAG = False
+
+    if not get_remaining_suggestions():
+        cursor = conn.execute(cmd_search_new)
+    else:
+        SUGGESTION_FLAG = True
+        cursor = conn.execute(cmd_search_suggestions)
+
     ridx,title,text,url = cursor.next()
     cursor.close()
+
+    # Let the user know this is a suggested flag
+    if SUGGESTION_FLAG:
+        title = "(S) {}".format(title)
 
     key = "."
     while key not in response.keys():
@@ -111,7 +146,13 @@ while True:
     if key.lower() != "s":
         time = datetime.datetime.now()
         conn.execute(cmd_mark_tracking, (ridx,status,time))
+
+        if SUGGESTION_FLAG:
+            conn.execute(cmd_remove_suggestion,(ridx,))
+
         conn.commit()
+
+        
 
 
 cmd_search_top = '''

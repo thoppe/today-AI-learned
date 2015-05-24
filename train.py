@@ -43,7 +43,8 @@ def build_skip_query(skip_n):
     cmd_find = '''
     SELECT decoy_idx, wikipedia_title 
     FROM decoy WHERE decoy_idx%{}==0'''.format(skip_n)
-    cmd_insert = '''INSERT INTO skip_decoy_query (decoy_idx) VALUES (?)'''
+    cmd_insert = '''INSERT INTO skip_decoy_query (decoy_idx) 
+                    VALUES (?)'''
     cursor = conn_decoy.execute(cmd_find)
     
     for idx,title in cursor:
@@ -111,10 +112,12 @@ def train_model():
     TTS = train_test_split
     x_train, x_test, y_train, y_test = TTS(ITR, Y, test_size=0.2)
 
-    print "Proportion of answers {}/{}".format(y_train.sum(), y_test.sum())
+    print "Proportion of answers {}/{}".format(y_train.sum(),
+                                               y_test.sum())
 
     print "Calculating the wordVecs for train"
-    vec_train = np.concatenate([getWordVecs(text,weight,features,dimension)
+    vec_train = np.concatenate([getWordVecs(text,weight,
+                                            features,dimension)
                                 for text,weight in x_train])
         
     print "Building the scalar"
