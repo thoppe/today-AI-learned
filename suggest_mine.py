@@ -2,13 +2,16 @@ import sqlite3, itertools, collections
 import numpy as np
 import os, string
 from gensim.models.word2vec import Word2Vec
-from sklearn import preprocessing
 from sklearn.cross_validation import train_test_split
+from sklearn.externals import joblib
 
 '''
 Use human-scored database to help figure out what might be good
 to present next!
 '''
+
+f_features = "db/features.word2vec"
+f_norm_scale = "db/scale.joblib"
 
 conn = sqlite3.connect("db/report.db",
                        detect_types=sqlite3.PARSE_DECLTYPES|
@@ -21,19 +24,18 @@ CREATE TABLE IF NOT EXISTS suggestions
 '''
 conn.executescript(cmd_template)
 
-HUMAN_LIMIT = 50000
-NEW_SUGGESTION_N = 3000
+HUMAN_LIMIT = 500
+NEW_SUGGESTION_N = 10000
+CORPUS_LIMIT = HUMAN_LIMIT*10
 
 cmd_count_scored = "SELECT COUNT(*) FROM human_tracking"
 total_scored = conn.execute(cmd_count_scored).next()[0]
 total_scored = min(total_scored, HUMAN_LIMIT)
-CORPUS_LIMIT = total_scored*10
 
 print "Found {} human scored entries".format(total_scored)
-print "Using {} entries in crossref corpus".format(CORPUS_LIMIT)
 
 cmd_select_corpus_text = '''
-SELECT wikipedia_text
+SELECT wikipedia_title, wikipedia_text
 FROM report as A
 JOIN crossref AS B
 ON A.report_idx==B.report_idx
@@ -41,7 +43,7 @@ LIMIT {}
 '''.format(CORPUS_LIMIT)
 
 cmd_select_human_scored = '''
-SELECT B.wikipedia_text, A.status
+SELECT B.wikipedia_title, B.wikipedia_text, A.status
 FROM human_tracking AS A
 JOIN report AS B
 ON A.report_idx==B.report_idx
@@ -86,34 +88,20 @@ def getWordVecs(text,dimension=100):
 
     return vec
 
-def process_CORPUS_ITR(item):
-    text, = item
-    return process_text_item(text)
-
-def CORPUS_ITR():
-    cursor = conn.execute(cmd_select_corpus_text)
-    return itertools.imap(process_CORPUS_ITR, cursor)
-
 def process_TRAINING_ITR(item):   
-    text, status = item
-    tokens = process_text_item(text)
+    title, text, status = item
+    tokens = process_text_item(text+u' '+unicode(title))
     return getWordVecs(tokens), _STATUS_MAP[status]
 
 def TRAINING_ITR():
     cursor = conn.execute(cmd_select_human_scored)
     return itertools.imap(process_TRAINING_ITR, cursor)
-       
-print "Building features"
-features = Word2Vec(workers=8, min_count=30)
-features.build_vocab(CORPUS_ITR())
 
-print "Training features"
-features.train(CORPUS_ITR())
+print "Loading model"
+scalar = joblib.load(f_norm_scale)
+features = Word2Vec.load(f_features)
+dimension = 100
 
-print "Reducing the features"
-features.init_sims(replace=True)
-
-dimension = 100 # default dimension
 print "Building the training set"
 X,Y = zip(*list(TRAINING_ITR()))
 X = np.concatenate(X)
@@ -121,14 +109,11 @@ X = np.concatenate(X)
 TTS = train_test_split
 x_train, x_test, y_train, y_test = TTS(X, Y, test_size=0.17)
 
-print "Building the scalar"
-scaler = preprocessing.StandardScaler().fit(x_train)
-
 print "Scaling train vectors"
-x_train = scaler.transform(x_train)
+x_train = scalar.transform(x_train)
 
 print "Scaling text vectors"
-x_test = scaler.transform(x_test)
+x_test = scalar.transform(x_test)
 
 print "Training classifer"
 from sklearn.ensemble import ExtraTreesClassifier as Classifier
@@ -153,7 +138,7 @@ print
 print "Suggesting some new entries"
 
 cmd_search_new = '''
-SELECT A.report_idx,A.wikipedia_text
+SELECT A.report_idx,A.wikipedia_text,A.wikipedia_title
 FROM report as A
 JOIN crossref AS B
 ON A.report_idx==B.report_idx
@@ -167,13 +152,13 @@ cursor = conn.execute(cmd_search_new)
 
 VEC,RIDX = [],[]
 for item in cursor:
-    ridx, text = item
-    tokens = process_text_item(text)
+    ridx, text, title = item
+    tokens = process_text_item(text+u' '+unicode(title))
     vec = getWordVecs(tokens)
     RIDX.append(ridx)
     VEC.append(vec[0])
 
-X = scaler.transform(VEC)
+X = scalar.transform(VEC)
 P = clf.predict(X)
 print "Results of suggestions", collections.Counter(P)
 interesting_ridx = np.array(RIDX)[P==1]

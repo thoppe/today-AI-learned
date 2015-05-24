@@ -127,14 +127,14 @@ while True:
 
     # Let the user know this is a suggested flag
     if SUGGESTION_FLAG:
-        title = "(S) {}".format(title)
+        title = u"(S) {}".format(title)
 
     # Make this nice to read on the terminal
     text = textwrap.fill(text, 80)
 
     key = "."
     while key not in response.keys():
-        webbrowser.get().open(url,new=0)
+        webbrowser.open(url,new=0)
         
         print fmt.format(title,url,text)
         key = getch()
@@ -150,11 +150,13 @@ while True:
     if key.lower() != "s":
         time = datetime.datetime.now()
         conn.execute(cmd_mark_tracking, (ridx,status,time))
-
-        if SUGGESTION_FLAG:
-            conn.execute(cmd_remove_suggestion,(ridx,))
-
         conn.commit()
+
+    # Even if skipped, remove the suggestion
+    if SUGGESTION_FLAG:
+        conn.execute(cmd_remove_suggestion,(ridx,))
+        conn.commit()
+
 
         
 
