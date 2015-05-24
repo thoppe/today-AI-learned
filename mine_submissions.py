@@ -1,6 +1,6 @@
 import sqlite3, itertools, datetime
 import numpy as np
-import webbrowser,os
+import webbrowser,os,textwrap
 from src.parsing import tokenize, frequency_table
 
 '''
@@ -129,9 +129,13 @@ while True:
     if SUGGESTION_FLAG:
         title = "(S) {}".format(title)
 
+    # Make this nice to read on the terminal
+    text = textwrap.fill(text, 80)
+
     key = "."
     while key not in response.keys():
         webbrowser.get().open(url,new=0)
+        
         print fmt.format(title,url,text)
         key = getch()
 
