@@ -1,2 +1,8 @@
+# Temp files
+  
 *~
 *.pyc
+
+# Data files
+/data/wikipedia/*
+/data/reddit/*
