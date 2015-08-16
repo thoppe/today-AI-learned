@@ -7,7 +7,8 @@ from sklearn.externals import joblib
 
 '''
 Use human-scored database to help figure out what might be good
-to present next!
+to present next! This isn't documented, but it was a trial attempt
+to futher filter out the results.
 '''
 
 f_features = "db/features.word2vec"

@@ -1,7 +1,7 @@
 import sqlite3, itertools, datetime
 import numpy as np
 import webbrowser,os,textwrap
-from src.parsing import tokenize, frequency_table
+from parsing import tokenize, frequency_table
 
 '''
 Small interactive program to help a human label the prospective submissions.

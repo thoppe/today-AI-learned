@@ -17,13 +17,13 @@ From here it is relatively easy to download a parsed down versed of the wiki pag
 
 ## Data wrangling
 
-##### [attribute_TIL.py](attribute_TIL.py)
+##### [src/attribute_TIL.py](src/attribute_TIL.py)
 
 Somehow, we have to link the pithy one-line TIL title to the correct paragraph in the Wikipedia article. This is a non trivial task, as simple word frequencies are not enough. Ultimately I settled on a sort of "word-entropy". That is, each paragraph was stripped to it's unique words and these sets all formed a frequency vector for each paragraph. These vectors were normalized so that the unique words in each paragraph carried more weight. Then we took the title of the TIL post and compared it to the vectors of each paragraph settling on the paragraph with the closest match. This turns out to work surprisingly well.
 
 Additionally, I saved the non-matching paragraphs as some useful false positives.
 
-##### [build_decoy_db.py](build_decoy_db.py)
+##### [src/build_decoy_db.py](src/build_decoy_db.py)
 
 The next step was to prep the Wikipedia corpus.
 Using a full XML corpus of Wikipedia (not provided and parsed with [`bs4`](http://www.crummy.com/software/BeautifulSoup/bs4/doc/)), I tokenized and stemmed each paragraph of text for each article. This uses both [`nltk`](http://www.nltk.org/) for the word tokenization & stop words and the porter2 stemmer from the aptly named package [`stemming`](https://pypi.python.org/pypi/stemming/1.0).
@@ -38,7 +38,7 @@ Initially, I experimented with a simple word frequency as my feature vector. Whi
 
 Using Word2Vec requires two complete passes over the data, though it allows you to use an iterator making the memory requirements rather small.
 
-##### [train.py](train.py)
+##### [src/train.py](src/train.py)
 
 Here, perhaps lies the most contentious part of the project, the construction of the classifier. In the end, I settled for the Extremely Random Trees implementation in [`scikit-learn`](http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.ExtraTreesClassifier.html). This classifier, while fairly poor at detecting new true positives at about 10%, was extremely proficient at marking the true negatives. Since the assumption is that most of Wikipedia is, in fact, quite boring, this will help narrow down the results immensely.
 
@@ -50,16 +50,16 @@ Here, perhaps lies the most contentious part of the project, the construction of
 ![](figures/ROC_ExtraTreeClass.png)
   
 
-##### [score.py](score.py)
+##### [src/score.py](src/score.py)
 
 With the classifier solved, the next step is score each and every paragraph in Wikipedia. The classifier marks about 6 per 10000 as potential candidates.
 
-##### [report.py](report.py)
+##### [src/report.py](src/report.py)
 
 With the positives marked, we need to prepare the potentially interesting things to a human-readable format!
 Report starts building a new database that contains only the positive entries and the associated wikipedia text from the original source.
 
-##### [cross_reference.py](cross_reference.py)
+##### [src/cross_reference.py](src/cross_reference.py)
 
 Nobody likes a repost (unless it's better, or more aptly timed...), so we need to find out what has already been posted to reddit.
 To do so, we need a proper search name of the wikipedia article.
@@ -67,7 +67,7 @@ The module `mediawiki-utils` can do this, but stupidly requires python3.
 Thus the cross-reference program makes a system call to properly encode name as a search query for reddit.
 We then take the top search result (if exists) and store it; this info will serve as the criteria for a post/repost.
 
-##### [plot_times.py](plot_times.py)
+##### [src/plot_times.py](src/plot_times.py)
 
 With the potential TIL candidates identified, let's find the best time to post!
 Note that we are going to posit that post time has a casual relationship with the ultimate score.
@@ -82,9 +82,12 @@ What about the bottom r/TIL posts, those that had a score of < 1000? Considering
 
 ![](figures/bottom_TIL_time.png)
 
-##### [mine_submissions.py](mine_submissions.py)
+##### [src/mine_submissions.py](src/mine_submissions.py)
 
-Since we are going to have quite a few false positives, we setup a simple script to help determine quality TIL's. A random unlabeled TIL is pull from the database that hasn't been posted already and is opened on both the screen and the browser to quicky determine if it is "something worth learning".
+Since we are going to have quite a few false positives, we setup a simple script to help determine quality TIL's.
+A random unlabeled TIL is pull from the database that hasn't been posted already and is opened on both the screen and the browser to quicky determine if it is "something worth learning".
+This script show both the tagged interesting paragraph and the cooresponding wikipedia page.
+There is a simple prompt that allows you to mark an item to post later.
 
 ##### [post_submissions.py](post_submissions.py)
 

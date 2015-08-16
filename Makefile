@@ -10,5 +10,14 @@ learn:
 	python src/train.py
 	python src/score.py
 
+report:
+	python src/report.py
+
+cross_ref:
+	python src/cross_reference.py
+
+best_time:
+	python src/plot_times.py
+
 full_clean:
 	rm -rvf db

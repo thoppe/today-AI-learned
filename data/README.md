@@ -1,0 +1,1 @@
+In `reddit/` and `/wikipedia` are all posts with a score > 1000 and their corresponding wikipedia page for reference. 

@@ -3,7 +3,7 @@ from build_decoy_db import paragraph_iter
 from sklearn.externals import joblib
 import numpy as np
 import urllib
-from src.parsing import tokenize
+from parsing import tokenize
 
 conn_report = sqlite3.connect("db/report.db")
 
@@ -23,7 +23,6 @@ INSERT INTO report
 (wikipedia_title, wikipedia_text, tokens)
 VALUES (?,?,?)
 '''
-
 
 conn_decoy = sqlite3.connect("db/decoy.db")
 f_wiki = "/media/travis/Seagate Expansion Drive/data_dump/wiki.db"
