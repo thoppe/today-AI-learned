@@ -2,7 +2,7 @@ import sqlite3, itertools
 import numpy as np
 from sklearn.externals import joblib
 from gensim.models.word2vec import Word2Vec
-import src.build_features as feat
+import build_features as feat
 
 conn_decoy = sqlite3.connect("db/decoy.db")
 

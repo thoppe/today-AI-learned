@@ -4,11 +4,11 @@ features:
 download_wikipedia:
 	python src/wikipedia_dl.py
 
-all:
-	python attribute_TIL.py 
-	python build_decoy_db.py
-	python train.py
-	python score.py
+learn:
+	python src/attribute_TIL.py 
+	python src/build_decoy_db.py
+	python src/train.py
+	python src/score.py
 
 full_clean:
 	rm -rvf db

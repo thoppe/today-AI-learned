@@ -161,16 +161,17 @@ for item in cursor:
 X = scalar.transform(VEC)
 P = clf.predict(X)
 print "Results of suggestions", collections.Counter(P)
-interesting_ridx = np.array(RIDX)[P==1]
 
+for cat in [1,2]:
+    interesting_ridx = np.array(RIDX)[P==cat]
 
-cmd_insert_suggestions = '''
-INSERT INTO suggestions (report_idx) 
-VALUES (?)
-'''
+    cmd_insert_suggestions = '''
+    INSERT INTO suggestions (report_idx) 
+    VALUES (?)
+    '''
 
-values = [(x,) for x in interesting_ridx]
-conn.executemany(cmd_insert_suggestions, values)
-conn.commit()
+    values = [(x,) for x in interesting_ridx]
+    conn.executemany(cmd_insert_suggestions, values)
+    conn.commit()
 
-print "Suggested {} new values,".format(len(values))
+    print "Suggested {} new values".format(len(values))

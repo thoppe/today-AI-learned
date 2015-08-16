@@ -1,7 +1,7 @@
 import sqlite3
 import itertools
 import numpy as np
-from src.parsing import tokenize, frequency_table, paragraph_iter
+from parsing import tokenize, frequency_table, paragraph_iter
 
 def token_block_iter(title,html):
 

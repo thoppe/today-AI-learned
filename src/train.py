@@ -6,7 +6,7 @@ from sklearn.cross_validation import train_test_split
 from sklearn.externals import joblib
 
 from sklearn import preprocessing
-import src.build_features as feat
+import build_features as feat
 
 #FLAG_BUILD_DECOY_LIST = True
 FLAG_BUILD_DECOY_LIST = False

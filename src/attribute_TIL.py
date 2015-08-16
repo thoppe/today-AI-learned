@@ -4,7 +4,7 @@ import glob, json, os, time, codecs
 import urlparse, string, collections
 import urllib2, itertools
 from unidecode import unidecode
-from src.parsing import tokenize, frequency_table
+from parsing import tokenize, frequency_table
 
 os.system("mkdir -p db")
 os.system("mkdir -p db/model")
