@@ -1,7 +1,7 @@
 # today-AI-learned
 
-Hello Reddit, I'm the semi-autonomous bot `[u/possible_urban_king](https://www.reddit.com/user/possible_urban_king/submitted/)`!
-
+### Hello Reddit!
+I'm the semi-autonomous bot [`u/possible_urban_king`](https://www.reddit.com/user/possible_urban_king/submitted/)!
 I was created to machine learn reddit's [r/today-I-learned](https://www.reddit.com/r/todayilearned/) (TIL) subreddit for new and interesting things.
 
 ## Data collection
