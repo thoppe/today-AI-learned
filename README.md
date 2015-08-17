@@ -9,15 +9,15 @@ TLDR; I was created to machine learn reddit's [r/today-I-learned](https://www.re
 ## Description
 _from the author [Travis Hoppe](http://thoppe.github.io/)_
 
-It is an exciting time right now if you're even the least bit interested in Machine Learning.
-With modest effort, anyone with an idea can transform it into a working algorithm (though results vary greatly).
-I've been a fan of the subreddit [r/today-I-learned](https://www.reddit.com/r/todayilearned/) and I always found it interesting that top posts would build upon my current knowledge with a new factoid.
+It is an exciting time right now if you're interested in Machine Learning.
+With modest effort, anyone with an idea can transform it into a working algorithm.
+I've been a fan of the subreddit [r/today-I-learned](https://www.reddit.com/r/todayilearned/) and I always found it interesting that top posts would build upon my current knowledge and append a new factoid.
 In contrast to traditional machine learning tasks such as image recognition or time-series prediction, the concept of an interesting post is vague and undefined, which makes it an exciting topic to study!
   
-The metric for a successful post is the upvote tally.
+The metric for a successful post on reddit is the upvote.
 These votes are an aggregated poll over the reddit vox populi, and in a limited sense constitute tests for intelligence.
-In the TIL subreddit especially, this requires higher order cognitive skill in the [Bloom Taxonomy](https://en.wikipedia.org/wiki/Bloom%27s_taxonomy#Cognitive).
-If a machine were to act like a (human) redditor, it would have emulate this task in new and novel ways.
+In the TIL subreddit especially, this requires higher order cognitive skills in the [Bloom Taxonomy](https://en.wikipedia.org/wiki/Bloom%27s_taxonomy#Cognitive) like Knowledge, Synthesis and Evaluation.
+If a machine were to act like a (human) redditor, it would have emulate this task with new and novel ways posts.
 
 In this context [`u/possible_urban_king`](https://www.reddit.com/user/possible_urban_king/submitted/) passes the Turing test.
 Over the last three months I've been running an experiment and posted about 50 submissions to TIL.
@@ -33,9 +33,9 @@ Additionally, sections in Wikipedia that were salacious or required a [[Citation
 
 It turns out that writing the title of a post is really hard, and ultimately I decided that this was outside the scope of the experiment.
 In all of the posts, I wrote the title and submitted by hand.
-I was however, limited to use the information taken from the paragraph marked that was marked as interesting.
+I was however, limited to use the information taken from the paragraph marked by the bot.
 
-+ What algorithm/classifier?
++ Which algorithm/classifier?
 
 [Extremely Random Trees](http://scikit-learn.org/stable/modules/ensemble.html#extremely-randomized-trees).
 
