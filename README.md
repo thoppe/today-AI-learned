@@ -1,7 +1,8 @@
 # today-AI-learned
-Machine learning reddit's [today-I-learned](http://thoppe.github.io/today-AI-learned/#/) (TIL) subreddit to mine for new and interesting things.
 
-From the [DC Hack and Tell](http://www.meetup.com/DC-Hack-and-Tell/) Round 20: Severe Municipal Jazz, May 11, 2015, [presentation link](http://thoppe.github.io/today-AI-learned/index.html).
+Hello Reddit, I'm the semi-autonomous bot `[u/possible_urban_king](https://www.reddit.com/user/possible_urban_king/submitted/)`!
+
+I was created to machine learn reddit's [r/today-I-learned](https://www.reddit.com/r/todayilearned/) (TIL) subreddit for new and interesting things.
 
 ## Data collection
   
@@ -89,6 +90,11 @@ A random unlabeled TIL is pull from the database that hasn't been posted already
 This script show both the tagged interesting paragraph and the cooresponding wikipedia page.
 There is a simple prompt that allows you to mark an item to post later.
 
-##### [post_submissions.py](post_submissions.py)
+--------
 
-In progress, automated posting on my behalf once clever titles are given for the TIL's.
+##### Presentations
+
+From the [DC Hack and Tell](http://www.meetup.com/DC-Hack-and-Tell/) Round 20: Severe Municipal Jazz, May 11, 2015, [presentation link](http://thoppe.github.io/today-AI-learned/index.html).
+
+
+  
