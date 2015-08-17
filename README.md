@@ -1,36 +1,39 @@
 # today-AI-learned
 
-#### Hello Reddit! I'm the semi-autonomous bot [`u/possible_urban_king`](https://www.reddit.com/user/possible_urban_king/submitted/)
+#### Hello reddit! I'm the semi-autonomous bot [`u/possible_urban_king`](https://www.reddit.com/user/possible_urban_king/submitted/)
 
 TLDR; I was created to machine learn reddit's [r/today-I-learned](https://www.reddit.com/r/todayilearned/) (TIL) subreddit for new and interesting things. If karma/upvotes measure success, I passed the [Turing test](https://en.wikipedia.org/wiki/Turing_test).
 
 ----
 
-# Description
-_from the author (Travis Hoppe)[http://thoppe.github.io/]_
+## Description
+_from the author [Travis Hoppe](http://thoppe.github.io/)_
 
 It is an exciting time right now if you're even the least bit interested in Machine Learning.
 With modest effort, anyone with an idea can transform it into a working algorithm (though results vary greatly).
-I've been a fan of the subreddit [r/today-I-learned](https://www.reddit.com/r/todayilearned/) for some time and I thought it would be an interesting challenge to train an algorithm over.
-In contrast to traditional machine learning tasks such as image recognition or time-series prediction, the concept of an _interesting_ reddit post is vague and undefined, which makes it an exciting topic to study!
+I've been a fan of the subreddit [r/today-I-learned](https://www.reddit.com/r/todayilearned/) and I always found it interesting that top posts would build upon my current knowledge with a new factoid.
+In contrast to traditional machine learning tasks such as image recognition or time-series prediction, the concept of an interesting post is vague and undefined, which makes it an exciting topic to study!
   
 The metric for a successful post is the upvote tally.
-These votes are aggregated poll over the Reddit vox populi and in a limited sense constitute tests for intelligence.
-In TIL especially, this requires synthesis of knowledge to find things interesting to a human.
-If a machine were to act like a (human) Redditor, it would have emulate this task in new and novel ways.
+These votes are an aggregated poll over the reddit vox populi, and in a limited sense constitute tests for intelligence.
+In the TIL subreddit especially, this requires higher order cognitive skill in the [Bloom Taxonomy](https://en.wikipedia.org/wiki/Bloom%27s_taxonomy#Cognitive).
+If a machine were to act like a (human) redditor, it would have emulate this task in new and novel ways.
 
 In this context [`u/possible_urban_king`](https://www.reddit.com/user/possible_urban_king/submitted/) passes the Turing test.
 Over the last three months I've been running an experiment and posted about 50 submissions to TIL.
 The bot's posts have made it to the front page multiple times and the majority of posts are well-received (see results).
 
-The bot was trained over a selection of previously successful TIL posts (see methods) that used Wikipeida as a source.
+The bot was trained over a selection of previously successful TIL posts (see methods) that used Wikipedia as a source.
 Classification worked well, sometimes too well.
-I found that media characters (books, movies, etc...) were disproportionately tagged as interesting (and they would be too, if they were real people!).
-Additionally, sections in Wikipedia that were salacious or required a [Citation Needed] were often removed by the time they were to be posted.
+I found that media characters (books, movies, etc...) were disproportionately tagged as interesting.
+These characters would be interesting too, if only they were real people!
+Additionally, sections in Wikipedia that were salacious or required a [[Citation Needed]](https://en.wikipedia.org/wiki/Wikipedia:Citation_needed) were often removed by the time they were to be posted.
 
 + Semi-autonomous?
 
-It turns out writing the title of a post is really hard, even for the human expeirmenter. [`u/possible_urban_king`](https://www.reddit.com/user/possible_urban_king/submitted/) is semi-autonomous in this sense since a human still wrote the post and submitted by hand. I was however, limited to use the information taken from the paragraph marked that was marked as interesting.
+It turns out that writing the title of a post is really hard, and ultimately I decided that this was outside the scope of the experiment.
+In all of the posts, I wrote the title and submitted by hand.
+I was however, limited to use the information taken from the paragraph marked that was marked as interesting.
 
 + What algorithm/classifier?
 
@@ -42,25 +45,26 @@ It's a [colorless green idea](https://github.com/thoppe/Colorless-Green-Ideas).
 
 -----
   
-# Results
+## Results
 
 -----
 
-# Methods
+## Methods
 
-## Data collection
+### Data collection
   
-Supervised machine learning requires a massive tagged collection of high-quality data to be effective. Fortunately the past submissions of to r/TIL have done just that. Redditors have carefully curated a selection of posts that they collectively find interesting through their voting system. We can filter these posts to just those that point to Wikipedia as a source. This way, the source of each post uses a somewhat standardized language and grammar.
+Supervised machine learning requires a massive tagged collection of high-quality data to be effective.
+Fortunately the past submissions of to r/TIL have done just that. Redditors have carefully curated a selection of posts that they collectively find interesting through their voting system. We can filter these posts to just those that point to Wikipedia as a source. This way, the source of each post uses a somewhat standardized language and grammar.
 
 ##### [src/subreddit_dl.py](src/subreddit_dl.py)
 
-Initally I started with the top 1000 posts of all-time (due to an API restriction in reddit's search) using [praw](https://praw.readthedocs.org/en/). Ultimately however, I extended that to all posts that had a score of > 1000 in the years 2013 and 2014 (resulting in about 5000 quality TIL posts) using an alternate database.
+Initially I started with the top 1000 posts of all-time (due to an API restriction in reddit's search) using [praw](https://praw.readthedocs.org/en/). Ultimately however, I extended that to all posts that had a score of > 1000 in the years 2013 and 2014 (resulting in about 5000 quality TIL posts) using an alternate database.
 
 ##### [src/wikipedia_dl.py](src/wikipedia_dl.py)
 
 From here it is relatively easy to download a parsed down versed of the wiki page linked to by the reddit post.
 
-## Data wrangling
+### Data wrangling
 
 ##### [src/attribute_TIL.py](src/attribute_TIL.py)
 
@@ -75,7 +79,7 @@ Using a full XML corpus of Wikipedia (not provided and parsed with [`bs4`](http:
 
 This creates a rather massive SQLite database with each paragraph and the associated meta-data (like title, paragraph number, word-entropy, ...). Since there are many millions of assorted paragraphs (and I assume very few of them are interesting), I am going to use a random sampling of some of these as True Negatives in my machine learning. 
 
-## Machine Learning
+### Machine Learning
 
 ##### [src/build_features.py](src/build_features.py)
 
@@ -87,7 +91,7 @@ Using Word2Vec requires two complete passes over the data, though it allows you 
 
 Here, perhaps lies the most contentious part of the project, the construction of the classifier. In the end, I settled for the Extremely Random Trees implementation in [`scikit-learn`](http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.ExtraTreesClassifier.html). This classifier, while fairly poor at detecting new true positives at about 10%, was extremely proficient at marking the true negatives. Since the assumption is that most of Wikipedia is, in fact, quite boring, this will help narrow down the results immensely.
 
-    Training classifer
+    Training classifier
     Test Accuracy: 0.878
     Test Accuracy on TP: 0.116
     Test Accuracy on TN: 0.998
@@ -129,13 +133,13 @@ What about the bottom r/TIL posts, those that had a score of < 1000? Considering
 
 ##### [src/mine_submissions.py](src/mine_submissions.py)
 
-Since we are going to have quite a few false positives, we setup a simple script to help determine quality TIL's.
-A random unlabeled TIL is pull from the database that hasn't been posted already and is opened on both the screen and the browser to quicky determine if it is "something worth learning".
-This script show both the tagged interesting paragraph and the cooresponding wikipedia page.
+Since we are going to have a few false positives, I setup a simple script to help determine quality TIL's.
+A random unlabeled TIL is pull from the database that hasn't been posted already and is opened on both the screen and the browser to quickly determine if it is "something worth learning".
+This script show both the tagged interesting paragraph and the corresponding Wikipedia page.
 There is a simple prompt that allows you to mark an item to post later.
 
 --------
 
-##### Presentations/Media
+## Presentations/Media
 
 From the [DC Hack and Tell](http://www.meetup.com/DC-Hack-and-Tell/) Round 20: Severe Municipal Jazz, May 11, 2015, [presentation link](http://thoppe.github.io/today-AI-learned/index.html).
