@@ -101,7 +101,7 @@ It's a [colorless green idea](https://github.com/thoppe/Colorless-Green-Ideas).
 0 | [TIL Prior To The Commencement Of An Elimination](https://www.reddit.com/r/todayilearned/comments/3666wo/til_prior_to_the_commencement_of_an_elimination/)
 0 | [TIL Former Congressman Cleo Fields Achieved](https://www.reddit.com/r/todayilearned/comments/373m4r/til_former_congressman_cleo_fields_achieved/)
 0 | [TIL There Is A Canadian Bill Called The Blood](https://www.reddit.com/r/todayilearned/comments/3914uy/til_there_is_a_canadian_bill_called_the_blood/)
-0 | [TIL There Was A Nc Sheriff That Dressed In](https://www.reddit.com/r/todayilearned/comments/3fqyml/til_there_was_a_nc_sheriff_that_dressed_in/)
+0 | [TIL There Was A NC Sheriff That Dressed In](https://www.reddit.com/r/todayilearned/comments/3fqyml/til_there_was_a_nc_sheriff_that_dressed_in/)
 
 -----
 
@@ -109,7 +109,8 @@ It's a [colorless green idea](https://github.com/thoppe/Colorless-Green-Ideas).
 
 In the interests of scientific reproducibility, all of the code used in the experiment is hosted in this project.
 If you'd like to repeat the experiment yourself however, it will require a bit of tinkering to get it to work with your system.
-Feel free to fork and do whatever you like with this repo as it is released under [CC Attribution 3.0](https://creativecommons.org/licenses/by/3.0/us/).
+A zipped sqlite3 database of the raw paragraphs marked as interesting can be found in [db/report.db.bz2](db/report.db.bz2).
+Feel free to fork and do whatever you like with this repo as long you follow the [CC Attribution 3.0](https://creativecommons.org/licenses/by/3.0/us/) license.
 
 ### Data collection
   

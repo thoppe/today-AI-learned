@@ -25,6 +25,8 @@ VALUES (?,?,?)
 '''
 
 conn_decoy = sqlite3.connect("db/decoy.db")
+
+# This is where I stored my wikipedia data dump, change this to your location
 f_wiki = "/media/travis/Seagate Expansion Drive/data_dump/wiki.db"
 conn_wiki = sqlite3.connect(f_wiki, check_same_thread=False)
 

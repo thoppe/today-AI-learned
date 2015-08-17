@@ -42,6 +42,7 @@ def SQL_result(item):
     return all_data
 
 if __name__ == "__main__":
+    # This is where I stored my wikipedia data dump, change this to your location
     f_wiki = "/media/travis/Seagate Expansion Drive/data_dump/wiki.db"
     conn = sqlite3.connect(f_wiki, check_same_thread=False)
 
