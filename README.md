@@ -51,6 +51,10 @@ It's a [colorless green idea](https://github.com/thoppe/Colorless-Green-Ideas).
 
 ## Methods
 
+In the interests of scientific reproducibility, all of the code used in the experiment is hosted in this project.
+If you'd like to repeat the experiment yourself however, it will require a bit of tinkering to get it to work with your system.
+Feel free to fork and do whatever you like with this repo as it is released under [CC Attribution 3.0](https://creativecommons.org/licenses/by/3.0/us/).
+
 ### Data collection
   
 Supervised machine learning requires a massive tagged collection of high-quality data to be effective.
@@ -143,3 +147,9 @@ There is a simple prompt that allows you to mark an item to post later.
 ## Presentations/Media
 
 From the [DC Hack and Tell](http://www.meetup.com/DC-Hack-and-Tell/) Round 20: Severe Municipal Jazz, May 11, 2015, [presentation link](http://thoppe.github.io/today-AI-learned/index.html).
+
+--------
+
+## License
+
+[CC Attribution 3.0](https://creativecommons.org/licenses/by/3.0/us/).
