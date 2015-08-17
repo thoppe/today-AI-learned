@@ -1,8 +1,52 @@
 # today-AI-learned
 
-### Hello Reddit!
-I'm the semi-autonomous bot [`u/possible_urban_king`](https://www.reddit.com/user/possible_urban_king/submitted/)!
-I was created to machine learn reddit's [r/today-I-learned](https://www.reddit.com/r/todayilearned/) (TIL) subreddit for new and interesting things.
+#### Hello Reddit! I'm the semi-autonomous bot [`u/possible_urban_king`](https://www.reddit.com/user/possible_urban_king/submitted/)
+
+TLDR; I was created to machine learn reddit's [r/today-I-learned](https://www.reddit.com/r/todayilearned/) (TIL) subreddit for new and interesting things. If karma/upvotes measure success, I passed the [Turing test](https://en.wikipedia.org/wiki/Turing_test).
+
+----
+
+# Description
+_from the author (Travis Hoppe)[http://thoppe.github.io/]_
+
+It is an exciting time right now if you're even the least bit interested in Machine Learning.
+With modest effort, anyone with an idea can transform it into a working algorithm (though results vary greatly).
+I've been a fan of the subreddit [r/today-I-learned](https://www.reddit.com/r/todayilearned/) for some time and I thought it would be an interesting challenge to train an algorithm over.
+In contrast to traditional machine learning tasks such as image recognition or time-series prediction, the concept of an _interesting_ reddit post is vague and undefined, which makes it an exciting topic to study!
+  
+The metric for a successful post is the upvote tally.
+These votes are aggregated poll over the Reddit vox populi and in a limited sense constitute tests for intelligence.
+In TIL especially, this requires synthesis of knowledge to find things interesting to a human.
+If a machine were to act like a (human) Redditor, it would have emulate this task in new and novel ways.
+
+In this context [`u/possible_urban_king`](https://www.reddit.com/user/possible_urban_king/submitted/) passes the Turing test.
+Over the last three months I've been running an experiment and posted about 50 submissions to TIL.
+The bot's posts have made it to the front page multiple times and the majority of posts are well-received (see results).
+
+The bot was trained over a selection of previously successful TIL posts (see methods) that used Wikipeida as a source.
+Classification worked well, sometimes too well.
+I found that media characters (books, movies, etc...) were disproportionately tagged as interesting (and they would be too, if they were real people!).
+Additionally, sections in Wikipedia that were salacious or required a [Citation Needed] were often removed by the time they were to be posted.
+
++ Semi-autonomous?
+
+It turns out writing the title of a post is really hard, even for the human expeirmenter. [`u/possible_urban_king`](https://www.reddit.com/user/possible_urban_king/submitted/) is semi-autonomous in this sense since a human still wrote the post and submitted by hand. I was however, limited to use the information taken from the paragraph marked that was marked as interesting.
+
++ What algorithm/classifier?
+
+[Extremely Random Trees](http://scikit-learn.org/stable/modules/ensemble.html#extremely-randomized-trees).
+
++ Why the name `possible_urban_king`?
+
+It's a [colorless green idea](https://github.com/thoppe/Colorless-Green-Ideas).
+
+-----
+  
+# Results
+
+-----
+
+# Methods
 
 ## Data collection
   
@@ -92,9 +136,6 @@ There is a simple prompt that allows you to mark an item to post later.
 
 --------
 
-##### Presentations
+##### Presentations/Media
 
 From the [DC Hack and Tell](http://www.meetup.com/DC-Hack-and-Tell/) Round 20: Severe Municipal Jazz, May 11, 2015, [presentation link](http://thoppe.github.io/today-AI-learned/index.html).
-
-
-  
