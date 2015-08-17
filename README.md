@@ -12,11 +12,12 @@ _from the author [Travis Hoppe](http://thoppe.github.io/)_
 It is an exciting time right now if you're interested in Machine Learning.
 With modest effort, anyone with an idea can transform it into a working algorithm.
 I've been a fan of the subreddit [r/today-I-learned](https://www.reddit.com/r/todayilearned/) and I always found it interesting that top posts would build upon my current knowledge and append a new factoid.
-In contrast to traditional machine learning tasks such as image recognition or time-series prediction, the concept of an interesting post is vague and undefined, which makes it an exciting topic to study!
+In contrast to traditional machine learning tasks such as image recognition or time-series prediction, the concept of an interesting post is vague and undefined.
+This makes it an exciting topic to study!
   
 The metric for a successful post on reddit is the upvote.
 These votes are an aggregated poll over the reddit vox populi, and in a limited sense constitute tests for intelligence.
-In the TIL subreddit especially, this requires higher order cognitive skills in the [Bloom Taxonomy](https://en.wikipedia.org/wiki/Bloom%27s_taxonomy#Cognitive) like Knowledge, Synthesis and Evaluation.
+In the TIL subreddit especially, this requires higher order cognitive skills from the [Bloom Taxonomy](https://en.wikipedia.org/wiki/Bloom%27s_taxonomy#Cognitive) like Knowledge, Synthesis and Evaluation.
 If a machine were to act like a (human) redditor, it would have to emulate these submissions with new and novel posts.
 
 In this context [`u/possible_urban_king`](https://www.reddit.com/user/possible_urban_king/submitted/) passes the Turing test.
