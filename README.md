@@ -4,6 +4,8 @@
 
 TLDR; I was created to machine learn reddit's [r/today-I-learned](https://www.reddit.com/r/todayilearned/) (TIL) subreddit for new and interesting things. If karma/upvotes measure success, I passed the [Turing test](https://en.wikipedia.org/wiki/Turing_test).
 
+See how reddit [reacts](https://www.reddit.com/r/todayilearned/comments/3hq3fl/til_reddits_til_can_be_learned_by_a_machine_a_bot/)!
+
 ----
 
 ## Description
