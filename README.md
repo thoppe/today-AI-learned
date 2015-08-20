@@ -159,8 +159,6 @@ Here, perhaps lies the most contentious part of the project, the construction of
     Test Accuracy on TN: 0.998
 
 
-<img property="og:image" rel="image_src" src="https://raw.githubusercontent.com/thoppe/today-AI-learned/master/figures/ROC_ExtraTreeClass.png">
-
 ![](figures/ROC_ExtraTreeClass.png)
   
 
