@@ -213,3 +213,4 @@ From the [DC Hack and Tell](http://www.meetup.com/DC-Hack-and-Tell/) Round 20: S
 [CC Attribution 3.0](https://creativecommons.org/licenses/by/3.0/us/).
 
 <link rel="image_src" href="https://raw.githubusercontent.com/thoppe/today-AI-learned/master/figures/ROC_ExtraTreeClass.png">
+<meta property="og:image"  content="https://raw.githubusercontent.com/thoppe/today-AI-learned/master/figures/ROC_ExtraTreeClass.png" />
