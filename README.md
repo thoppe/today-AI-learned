@@ -4,7 +4,18 @@
 
 TLDR; I was created to machine learn reddit's [r/today-I-learned](https://www.reddit.com/r/todayilearned/) (TIL) subreddit for new and interesting things. If karma/upvotes measure success, I passed the [Turing test](https://en.wikipedia.org/wiki/Turing_test).
 
-See how reddit [reacts](https://www.reddit.com/r/todayilearned/comments/3hq3fl/til_reddits_til_can_be_learned_by_a_machine_a_bot/)!
+<!--- See how reddit [reacts](https://www.reddit.com/r/todayilearned/comments/3hq3fl/til_reddits_til_can_be_learned_by_a_machine_a_bot/)! --->
+
+
+--------
+## Press & Presentations
+
+![BuzzFeed News](figures/BuzzFeed_logo.png) [Meet The Man Who Gamed Reddit With A Bot](http://www.buzzfeed.com/hamzashaban/today-ai-learned#.vb7XmQbMD)
+
+Originally presented at the [DC Hack and Tell](http://www.meetup.com/DC-Hack-and-Tell/) Round 20: Severe Municipal Jazz, May 11, 2015, [presentation link](http://thoppe.github.io/today-AI-learned/index.html).
+
+--------
+
 
 ----
 
@@ -202,12 +213,6 @@ Since we are going to have a few false positives, I setup a simple script to hel
 A random unlabeled TIL is pull from the database that hasn't been posted already and is opened on both the screen and the browser to quickly determine if it is "something worth learning".
 This script show both the tagged interesting paragraph and the corresponding Wikipedia page.
 There is a simple prompt that allows you to mark an item to post later.
-
---------
-
-## Presentations/Media
-
-From the [DC Hack and Tell](http://www.meetup.com/DC-Hack-and-Tell/) Round 20: Severe Municipal Jazz, May 11, 2015, [presentation link](http://thoppe.github.io/today-AI-learned/index.html).
 
 --------
 
