@@ -12,7 +12,7 @@ TLDR; I was created to machine learn reddit's [r/today-I-learned](https://www.re
 
 ![BuzzFeed News](figures/BuzzFeed_logo.png) [Meet The Man Who Gamed Reddit With A Bot](http://www.buzzfeed.com/hamzashaban/today-ai-learned#.vb7XmQbMD)
 
-Originally presented at the [DC Hack and Tell](http://www.meetup.com/DC-Hack-and-Tell/) Round 20: Severe Municipal Jazz, May 11, 2015, [presentation link](http://thoppe.github.io/today-AI-learned/index.html).
+![H&&T](figures/HnT_logo_small.jpeg) [H&&T](http://www.meetup.com/DC-Hack-and-Tell/) : R20: Severe Municipal Jazz, May 11, 2015, [presentation link](http://thoppe.github.io/today-AI-learned/index.html)
 
 --------
 
