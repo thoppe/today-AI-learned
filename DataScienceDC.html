@@ -22,7 +22,7 @@
 
     <!-- Default themes -->
     <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
-    
+    <link rel="stylesheet" href="reveal.js/css/theme/night.css" id="theme">
 
     <!-- For syntax highlighting -->
     <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
@@ -41,16 +41,20 @@
 	<section class="vertical-stack">
 <section   class="vertical-slide">
 <p>
-<h1>today-AI-learned</h1><em>(five minute hack-and-tell version)</em></p>
+<h1>today-AI-learned</h1><a href="https://github.com/thoppe/today-AI-learned">https://github.com/thoppe/today-AI-learned</a></p>
+<hr>
 <br>
 <p>
-<strong><a href="http://thoppe.github.io/">Travis Hoppe</a></strong></p>
-<hr>
+<h3><strong><a href="http://thoppe.github.io/">Travis Hoppe</a></strong></h3>Scientist + DC Hack && Tell</p>
+<br>
 <p>
-<a href="https://github.com/thoppe/today-AI-learned">https://github.com/thoppe/today-AI-learned</a><br><link rel="stylesheet" href="css/font-awesome-4.3.0/css/font-awesome.min.css"></p>
+<h4><a href="https://www.reddit.com/user/possible_urban_king/submitted/">/u/possible_urban_king</a></h4>Artificial Redditor</p>
 </section>
 </section><section class="vertical-stack">
 <section   class="vertical-slide">
+<p>
+<link rel="stylesheet" href="css/font-awesome-4.3.0/css/font-awesome.min.css"></p>
+<br>
 <p>
 <h1>The goal</h1></p>
 <br>
@@ -83,16 +87,15 @@
 <p>
 <h2>Data collection</h2></p>
 <br>
-<ul><li>Download all popular posts with <code>score>1000</code> for 2013 and 2014 (~5000)</li>
-<li>Download Wikipedia</li>
-<li>Cross-reference each post to the correct Wikipedia <em>paragraph</em></li>
-<li>Built True positives (known TIL's)</li>
-<li>Built Decoys (other paragraphs in TIL's)</li>
-<li>Built unknown samples (rest of Wikipedia*)</li></ul>
+<p>
+Download all popular posts with <code>score>1000</code> for 2013 and 2014 (~5000)</p>
+<br>
+<p>
+Download Wikipedia<br>Cross-reference each post to the correct Wikipedia <em>paragraph</em><br>Build True positives (known TIL's)<br>Build Decoys (other paragraphs in TIL's)<br>Build unknown samples (rest of Wikipedia*)</p>
 <br>
 <br>
 <p>
-<h3>Use all the tools!</h3>Project uses modules <code>sqlite3</code>, <code>requests</code>, <code>bs4</code>, <code>pandas</code>, <code>numpy</code>, <code>scikit-learn</code>, <code>gensim</code>, <code>praw</code>, <code>wikipedia</code>, <code>nltk</code>, <code>stemmming.porter2</code></p>
+<h3>from python import science</h3><code>sqlite3</code>, <code>requests</code>, <code>bs4</code>, <code>pandas</code>, <code>numpy</code>, <code>scikit-learn</code>,<br><code>gensim</code>, <code>praw</code>, <code>wikipedia</code>, <code>nltk</code>, <code>stemmming.porter2</code></p>
 <br>
 <p>
 <div class="reference_footnote">*Assume that most of Wikipedia isn't interesting...</div></p>
@@ -128,15 +131,34 @@ array([-0.00449447, -0.00310097,  0.02421786, ...], dtype=float32)</code></pre>
 Uses far fewer features to store relationships between words!</p>
 <br>
 <p>
-<div class="reference_footnote">Also TF-IDF shows reddit is preoccupied with Hitler and Pokemon...</div></p>
+<div class="reference_footnote">Also TF-IDF shows reddit is preoccupied with Hitler and Pokemon...<a href="http://www.buzzfeed.com/hamzashaban/godwins-law-is-put-to-the-test">funny story about that</a></div></p>
 </section><section   class="vertical-slide">
 <p>
-<h2>Modeling training</h2>Used <a href="http://scikit-learn.org/stable/modules/ensemble.html">Extremely Random Trees</a>, variant of Random Tree classifier.</p>
+<h2>Modeling training</h2>Used <a href="http://scikit-learn.org/stable/modules/ensemble.html">Extremely Randomized Trees</a>, variant of Random Tree classifier.</p>
 <pre><code class=python>Training classifier
 Test Accuracy: 0.878;    Test Accuracy on TP: 0.116;   Test Accuracy on TN: 0.998</code></pre>
 <figure>
     <a href="figures/ROC_ExtraTreeClass.png">
     <img class="" src="figures/ROC_ExtraTreeClass.png" height="550px">
+    </a>
+    <figcaption>Receiver Operating Curve</figcaption>
+    </figure>
+</section>
+</section><section class="vertical-stack">
+<section   class="vertical-slide">
+<p>
+<h1>Does it work?</h1><em>yes! all that sweet sweet front-page karma...</em></p>
+<br>
+<p>
+<a href="https://www.reddit.com/r/todayilearned/comments/37bvmu/til_the_founder_of_japans_mcdonalds_stated/">TIL The Founder Of Japans Mcdonalds Stated</a> | 4726<br><a href="https://www.reddit.com/r/todayilearned/comments/3eg5js/til_mike_kurtz_an_american_burglar_found_out_that/">TIL Mike Kurtz An American Burglar Found Out That</a> | 4123<br><a href="https://www.reddit.com/r/todayilearned/comments/38x454/til_a_woman_that_reported_100_incidents_of/">TIL A Woman That Reported 100 Incidents Of</a> | 2899<br><a href="https://www.reddit.com/r/todayilearned/comments/3fvl39/til_during_the_sentencing_of_his_war_crimes_trial/">TIL During The Sentencing Of His War Crimes Trial</a> | 1551<br><a href="https://www.reddit.com/r/todayilearned/comments/36ra0w/til_that_art_spiegelman_the_creator_of_maus_a/">TIL That Art Spiegelman The Creator Of Maus A</a> | 1144<br><a href="https://www.reddit.com/r/todayilearned/comments/3cayy3/til_that_once_officially_labelled_as_retarded/">TIL That Once Officially Labeled As Retarded</a> | 640<br><a href="https://www.reddit.com/r/todayilearned/comments/3cjy9k/til_before_world_war_ii_it_was_very_rare_for/">TIL Before World War Ii It Was Very Rare For</a> | 498<br><a href="https://www.reddit.com/r/todayilearned/comments/38iqur/til_that_a_study_showed_those_with_a_distressed/">TIL That A Study Showed Those With A Distressed</a> | 142<br><a href="https://www.reddit.com/r/todayilearned/comments/3e2lw2/til_frankie_fraser_a_notorious_english_gangster/">TIL Frankie Fraser A Notorious English Gangster</a> | 135<br><a href="https://www.reddit.com/r/todayilearned/comments/362d4l/til_rafael_quintero_a_mexican_drug_trafficker/">TIL Rafael Quintero A Mexican Drug Trafficker</a> | 68<br>...</p>
+</section>
+</section><section class="vertical-stack">
+<section   class="vertical-slide">
+<p>
+<h2>AI vs Human (Turing test pt. 1)</h2></p>
+<figure>
+    <a href="figures/vs_human.png">
+    <img class="" src="figures/vs_human.png" height="700px">
     </a>
     
     </figure>
@@ -144,45 +166,21 @@ Test Accuracy: 0.878;    Test Accuracy on TP: 0.116;   Test Accuracy on TN: 0.99
 </section><section class="vertical-stack">
 <section   class="vertical-slide">
 <p>
-<h1>Does it work?</h1>Yes! (Examples incoming). Still requires a human to construct titles and filter. Mistakenly concentrates on movie & book plot summaries (if they happened in real life they would be exciting!).<div class="fragment"><h1>Does it pass the Turning test?</h1>shhhhh.... secretly submitting to reddit soon<br></div></p>
-</section><section   class="vertical-slide">
-<p>
-<h1>Examples!</h1></p>
-<br>
-<p>
-<h2><a href="http://en.wikipedia.org/wiki/Bubble_wrap">Bubble wrap</a></h2></p>
-<br>
-<p>
-"Bubble wrap" is a generic trademark owned by Sealed Air Corporation. In 1957 two inventors named Alfred Fielding and Marc Chavannes were <strong>attempting to create a three-dimensional plastic wallpaper</strong>. Although the idea was a failure, they found that what they did make could be used as packing material. Sealed Air Corp. was co-founded by Alfred Fielding.</p>
-</section><section   class="vertical-slide">
-<p>
-<h1>Examples!</h1></p>
-<br>
-<p>
-<h2><a href="http://en.wikipedia.org/wiki/DineEquity">DineEquity</a></h2></p>
-<br>
-<p>
-Julia Stewart, who originally <strong>worked as a waitress at IHOP and worked her way up through the restaurant industry, became Chief Executive Officer</strong> of IHOP Corporation. She had previously been President of Applebee’s, but left after being overlooked for that company's CEO position. She became CEO of IHOP in 2001, and returned to manage her old company due to the acquisition.</p>
-</section><section   class="vertical-slide">
-<p>
-<h1>Examples!</h1></p>
-<br>
-<p>
-<h2><a href="http://en.wikipedia.org/wiki/George_R._R._Martin">George R. R. Martin</a></h2></p>
-<br>
-<p>
-Martin is <strong>opposed to fan fiction</strong>, believing it to be copyright infringement and a <strong>bad exercise for aspiring writers</strong>.</p>
-</section><section   class="vertical-slide">
-<p>
-<h1>Examples!</h1><h2><a href="http://en.wikipedia.org/wiki/Andy_Kaufman">Andy Kaufman</a></h2>At Thanksgiving dinner on Long Island, New York, in November 1983, several family members openly expressed worry about Kaufman's persistent coughing. He claimed that he had been coughing for nearly a month, visited his doctor, and been told that nothing was wrong. When he returned to Los Angeles, he consulted a physician, then checked himself into Cedars-Sinai Hospital for a series of medical tests. A few days later, he was diagnosed with an extremely rare type of lung cancer. <em>Though Kaufman almost never smoked cigarettes, it was speculated by his doctors that he <strong>may have developed lung cancer from repeated exposure to second-hand smoke while performing in nightclubs where smoking was permitted during that period.</strong></em><br><div class="reference_footnote">Good example of hearsay on Wikipedia, has since been removed!</div></p>
+<h2>Big reveal (Turing test pt. 2)</h2>After three months and 60 submissions, I revealed to Reddit<br>the true nature of <code>/u/possible_urban_king</code>.<br><br><div class="fragment"><br><br>At which the account was promptly banned from posting in r/todayIlearned ...<br><em>thanks anonymous moderator for helping prove the test!</em><br></div></p>
 </section>
 </section><section class="vertical-stack">
 <section   class="vertical-slide">
 <p>
-<h1>Thanks you!</h1></p>
+<h1>Thanks, you!</h1></p>
 <br>
 <p>
-<div style="footnote"><br>Looking for an overpowered scientist turned analyst/developer? Let's talk!<br><strong>travis.hoppe @ gmail.com</strong><br></div></p>
+<h3><a href="http://www.buzzfeed.com/hamzashaban/today-ai-learned#.glVDa6wR2">Meet The Man Who Gamed Reddit With A Bot</a></h3></p>
+<figure>
+    <a href="figures/BuzzFeed_logo.png">
+    <img class="transparent_image" src="figures/BuzzFeed_logo.png" >
+    </a>
+    
+    </figure>
 </section>
 </section>
     </div></div>
@@ -194,7 +192,7 @@ Martin is <strong>opposed to fan fiction</strong>, believing it to be copyright 
       // Full list of configuration options available here:
       // https://github.com/hakimel/reveal.js#configuration
       Reveal.initialize({
-      overview: true, height: 900, keyboard: {37: 'prev', 39: 'next'}, touch: true, hideAddressBar: true, rollingLinks: false, mouseWheel: false, controls: true, width: 1200, viewDistance: 3, rtl: false, progress: true, fragments: true, autoSlide: 0, autoSlideStoppable: true, backgroundtransition: "default", transitionSpeed: "default", center: true, embedded: true, transition: "default", maxScale: 1.2, minScale: 0.2, previewLinks: false, margin: 0.05, loop: false, history: true, 
+      overview: true, height: 900, keyboard: {37: 'prev', 39: 'next'}, touch: true, hideAddressBar: true, rollingLinks: false, mouseWheel: true, controls: false, width: 1200, viewDistance: 3, rtl: false, progress: true, fragments: true, autoSlide: 0, autoSlideStoppable: true, backgroundtransition: "default", transitionSpeed: "default", slideNumber: true, center: true, embedded: true, transition: "default", maxScale: 1.2, minScale: 0.2, previewLinks: false, margin: 0.05, loop: false, history: true, 
       
       theme: Reveal.getQueryHash().theme, 
       // available themes are in reveal.js/css/theme
