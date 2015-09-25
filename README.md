@@ -11,11 +11,12 @@ TLDR; I was created to machine learn reddit's [r/today-I-learned](https://www.re
 ## Press & Presentations
 
 ![BuzzFeed News](figures/BuzzFeed_logo.png) 
-[Meet The Man Who Gamed Reddit With A Bot](http://www.buzzfeed.com/hamzashaban/today-ai-learned#.vb7XmQbMD)
 
 ![H&&T](figures/HnT_logo_small.jpeg) ![DSDC](figures/DSDC_logo.png)
 
-[H&&T](http://www.meetup.com/DC-Hack-and-Tell/) : R20: Severe Municipal Jazz, May 11, 2015, [presentation link](http://thoppe.github.io/today-AI-learned/index.html)
+BuzzFeed News : [Meet The Man Who Gamed Reddit With A Bot](http://www.buzzfeed.com/hamzashaban/today-ai-learned#.vb7XmQbMD)
+
+[H&&T](http://www.meetup.com/DC-Hack-and-Tell/) : Round 20: Severe Municipal Jazz, May 11, 2015, [presentation link](http://thoppe.github.io/today-AI-learned/index.html)
 
 [Data Science DC](http://www.meetup.com/Data-Science-DC/events/225413582/) : Lightning Talks! (IV), September 29th, 2015, [presentation link](http://thoppe.github.io/today-AI-learned/DataScienceDC.html)
 
