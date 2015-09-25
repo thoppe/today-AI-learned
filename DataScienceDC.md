@@ -94,7 +94,7 @@ Used [Extremely Randomized Trees](http://scikit-learn.org/stable/modules/ensembl
 ====
 
 # Does it work?
-_yes! all that sweet sweet front-page karma..._
+_yes! look at all that sweet front-page karma..._
 
 [TIL The Founder Of Japans Mcdonalds Stated](https://www.reddit.com/r/todayilearned/comments/37bvmu/til_the_founder_of_japans_mcdonalds_stated/) | 4726
 [TIL Mike Kurtz An American Burglar Found Out That](https://www.reddit.com/r/todayilearned/comments/3eg5js/til_mike_kurtz_an_american_burglar_found_out_that/) | 4123
