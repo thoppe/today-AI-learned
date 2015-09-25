@@ -109,16 +109,20 @@ _yes! look at all that sweet front-page karma..._
 ...
 ====
 ## AI vs Human (Turing test pt. 1)
-!(figures/vs_human.png) <<height:700px>>
+!(figures/vs_human.png) <<height:700px>> I can do (almost) anything you can do better...
 ====
-## Big reveal (Turing test pt. 2)
+## Turing test pt. 2
 After three months and 60 submissions, I revealed to Reddit
 the true nature of `/u/possible_urban_king`.
-<br>
-====+
-<br>
 At which the account was promptly banned from posting in r/todayIlearned ...
 _thanks anonymous moderator for helping prove the test!_
+====+
+<br>
+#### The Turing test is a necessary but not sufficient test for artificial intelligence.
+!(figures/AI_2.gif) <<height:300px;>> Artificial Intelligence
+!(figures/AI_1.gif) <<height:300px;>> Machine Learning
+
+
 ====
 # Thanks, you!
 
