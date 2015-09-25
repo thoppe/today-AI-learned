@@ -1,7 +1,11 @@
 title  = "today-AI-learned"
 author = "Travis Hoppe"
-target = "pres.md"
-html_target = "index.html"
+
+#target = "HnTpres.md"
+#html_target = "index.html"
+
+target = "DataDCpres.md"
+html_target = "DataDC.html"
 
 python_exec    = python
 md2reveal_exec = md2reveal/md2reveal.py
