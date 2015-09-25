@@ -10,14 +10,17 @@ TLDR; I was created to machine learn reddit's [r/today-I-learned](https://www.re
 --------
 ## Press & Presentations
 
-![BuzzFeed News](figures/BuzzFeed_logo.png) [Meet The Man Who Gamed Reddit With A Bot](http://www.buzzfeed.com/hamzashaban/today-ai-learned#.vb7XmQbMD)
+![BuzzFeed News](figures/BuzzFeed_logo.png) 
+[Meet The Man Who Gamed Reddit With A Bot](http://www.buzzfeed.com/hamzashaban/today-ai-learned#.vb7XmQbMD)
 
-![H&&T](figures/HnT_logo_small.jpeg) [H&&T](http://www.meetup.com/DC-Hack-and-Tell/) : R20: Severe Municipal Jazz, May 11, 2015, [presentation link](http://thoppe.github.io/today-AI-learned/index.html)
+![H&&T](figures/HnT_logo_small.jpeg) ![DSDC](figures/DSDC_logo.png)
+
+[H&&T](http://www.meetup.com/DC-Hack-and-Tell/) : R20: Severe Municipal Jazz, May 11, 2015, [presentation link](http://thoppe.github.io/today-AI-learned/index.html)
+
+[Data Science DC](http://www.meetup.com/Data-Science-DC/events/225413582/) : Lightning Talks! (IV), September 29th, 2015, [presentation link](http://thoppe.github.io/today-AI-learned/DataScienceDC.html)
 
 --------
 
-
-----
 
 ## Description
 _from the author [Travis Hoppe](http://thoppe.github.io/)_
@@ -68,7 +71,7 @@ It's a [colorless green idea](https://github.com/thoppe/Colorless-Green-Ideas).
 2899 | [TIL A Woman That Reported 100 Incidents Of](https://www.reddit.com/r/todayilearned/comments/38x454/til_a_woman_that_reported_100_incidents_of/)
 1551 | [TIL During The Sentencing Of His War Crimes Trial](https://www.reddit.com/r/todayilearned/comments/3fvl39/til_during_the_sentencing_of_his_war_crimes_trial/)
 1144 | [TIL That Art Spiegelman The Creator Of Maus A](https://www.reddit.com/r/todayilearned/comments/36ra0w/til_that_art_spiegelman_the_creator_of_maus_a/)
-640 | [TIL That Once Officially Labelled As Retarded](https://www.reddit.com/r/todayilearned/comments/3cayy3/til_that_once_officially_labelled_as_retarded/)
+640 | [TIL That Once Officially Labeled As Retarded](https://www.reddit.com/r/todayilearned/comments/3cayy3/til_that_once_officially_labelled_as_retarded/)
 498 | [TIL Before World War Ii It Was Very Rare For](https://www.reddit.com/r/todayilearned/comments/3cjy9k/til_before_world_war_ii_it_was_very_rare_for/)
 142 | [TIL That A Study Showed Those With A Distressed](https://www.reddit.com/r/todayilearned/comments/38iqur/til_that_a_study_showed_those_with_a_distressed/)
 135 | [TIL Frankie Fraser A Notorious English Gangster](https://www.reddit.com/r/todayilearned/comments/3e2lw2/til_frankie_fraser_a_notorious_english_gangster/)
@@ -158,7 +161,7 @@ This creates a rather massive SQLite database with each paragraph and the associ
 
 ##### [src/build_features.py](src/build_features.py)
 
-Initially, I experimented with a simple word frequency as my feature vector. While this works for toy problems, the corpus of Wikipedia needed a smarter way to condense down the data. Fortuntetly, a neat textual feature generator, Word2Vec (developed by Google) is available in [`gensim`](https://radimrehurek.com/gensim/).
+Initially, I experimented with a simple word frequency as my feature vector. While this works for toy problems, the corpus of Wikipedia needed a smarter way to condense down the data. Fortunately, a neat textual feature generator, Word2Vec (developed by Google) is available in [`gensim`](https://radimrehurek.com/gensim/).
 
 Using Word2Vec requires two complete passes over the data, though it allows you to use an iterator making the memory requirements rather small.
 
@@ -182,12 +185,12 @@ With the classifier solved, the next step is score each and every paragraph in W
 ##### [src/report.py](src/report.py)
 
 With the positives marked, we need to prepare the potentially interesting things to a human-readable format!
-Report starts building a new database that contains only the positive entries and the associated wikipedia text from the original source.
+Report starts building a new database that contains only the positive entries and the associated Wikipedia text from the original source.
 
 ##### [src/cross_reference.py](src/cross_reference.py)
 
 Nobody likes a repost (unless it's better, or more aptly timed...), so we need to find out what has already been posted to reddit.
-To do so, we need a proper search name of the wikipedia article.
+To do so, we need a proper search name of the Wikipedia article.
 The module `mediawiki-utils` can do this, but stupidly requires python3.
 Thus the cross-reference program makes a system call to properly encode name as a search query for reddit.
 We then take the top search result (if exists) and store it; this info will serve as the criteria for a post/repost.
